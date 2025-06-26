@@ -45,7 +45,7 @@
             color: var(--text-primary);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding-top: 70px;
+            padding-top: 70px; /* Default top padding for header */
             transition: background 0.3s, color 0.3s;
         }
         .page-container { display: flex; }
@@ -58,7 +58,7 @@
             border-bottom: 1px solid var(--border-color);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 24px; z-index: 1100;
-            transition: background 0.3s, border-color 0.3s;
+            transition: background 0.3s, border-color 0.3s, height 0.3s, padding 0.3s;
         }
         html[data-theme="dark"] .top-bar { --surface-transparent: rgba(36, 37, 38, 0.8); }
 
@@ -68,9 +68,10 @@
             width: 44px; height: 44px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 12px var(--glow-color);
+            transition: var(--ease-cubic);
         }
         .logo-icon i { font-size: 1.5rem; color: #fff; }
-        .logo-text { font-size: 1.5rem; font-weight: 800; }
+        .logo-text { font-size: 1.5rem; font-weight: 800; transition: display 0.3s; }
         .header-controls { display: flex; align-items: center; gap: 16px; }
         .theme-toggle {
             font-size: 1.3rem; color: var(--text-secondary); background: none;
@@ -88,7 +89,90 @@
             padding: 24px 0; height: calc(100vh - 70px);
             position: fixed; top: 70px; right: 0;
             overflow-y: auto; border-left: 1px solid var(--border-color);
-            transition: transform 0.3s ease-in-out, background 0.3s, border-color 0.3s;
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s, border-color 0.3s, box-shadow 0.3s;
+            z-index: 1200;
+            box-shadow: 0 0 0 transparent;
+        }
+
+        .sidebar.is-open {
+            box-shadow: -8px 0 32px rgba(0,0,0,0.18);
+        }
+
+        .sidebar .filter-form {
+            padding-bottom: 24px;
+        }
+
+        /* Add a close button for mobile sidebar */
+        .sidebar-close-btn {
+            display: none;
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--primary-glow);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px var(--glow-color);
+            z-index: 1300;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .sidebar-close-btn:active, .sidebar-close-btn:focus {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 16px var(--glow-color);
+            transform: scale(0.97);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 320px;
+                left: auto; right: 0; top: 0; height: 100vh;
+                border-left: 1px solid var(--border-color);
+                border-top: none;
+                border-radius: 0 0 0 0;
+                background: var(--surface);
+                transform: translateX(100%);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s;
+                padding: 24px 0;
+            }
+            .sidebar.is-open {
+                transform: translateX(0);
+                box-shadow: -8px 0 32px rgba(0,0,0,0.18);
+            }
+            .sidebar-close-btn {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 220px;
+                padding: 12px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 90vw;
+                left: 0; right: 0; top: 56px; height: calc(100vh - 56px);
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+                border-radius: 0 0 0 0;
+                padding: 8px 0;
+            }
+            .sidebar-close-btn {
+                top: 8px;
+                left: 8px;
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
         }
         .filter-form { padding: 0 16px; }
         .filter-group { border: none; padding: 0; margin: 0 0 24px 0; }
@@ -114,12 +198,32 @@
         .filter-options i { width: 20px; text-align: center; }
         .filter-options input:checked + label i { color: #fff !important; }
 
+        /* --- Sidebar Toggle Button (for Mobile) --- */
+        .sidebar-toggle {
+            display: none; /* Hidden by default */
+            background: var(--primary-glow);
+            border: none; border-radius: 10px;
+            padding: 8px 12px; color: #fff; font-size: 1.5rem;
+            box-shadow: 0 2px 8px var(--glow-color);
+            transition: var(--ease-cubic);
+            cursor: pointer; outline: none; margin-left: 8px;
+        }
+
+        /* --- Mobile Overlay --- */
+        .sidebar-mobile-overlay {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.35);
+            z-index: 1199;
+        }
+        .sidebar-mobile-overlay.is-visible { display: block; }
+        
         /* --- Main Content --- */
-        .main-content { flex: 1; margin-right: 250px; padding: 32px; }
+        .main-content { flex: 1; margin-right: 250px; padding: 32px; transition: margin-right 0.3s, padding 0.3s; }
         .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .content-header h1 { font-size: 2rem; margin: 0; }
         .video-count-info { font-size: 1rem; font-weight: 500; color: var(--text-secondary); background: var(--surface); padding: 8px 16px; border-radius: 12px; border: 1px solid var(--border-color); }
-
+        
         /* --- Video Card --- */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
         .video-card {
@@ -142,18 +246,13 @@
         .video-info { padding: 16px; display: flex; gap: 12px; align-items: flex-start; }
         .category-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-glow); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
         .video-details { display: flex; flex-direction: column; min-width: 0; }
-        .video-title { font-size: 1.05rem; font-weight: 600; line-height: 1.5; margin: 0 0 6px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
-        .video-meta { font-size: 0.85rem; color: var(--text-secondary); }
-        .video-meta span { margin-left: 12px; }
+        .video-title { font-size: 1.05rem; font-weight: 600; line-height: 1.5; margin: 0 0 6px 0; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
 
         /* --- Enhanced No Results --- */
         .no-results {
-            grid-column: 1 / -1;
-            text-align: center; color: var(--text-secondary);
-            padding: 60px 20px;
-            background: var(--surface);
-            border-radius: 18px;
-            border: 2px dashed var(--border-color);
+            grid-column: 1 / -1; text-align: center; color: var(--text-secondary);
+            padding: 60px 20px; background: var(--surface);
+            border-radius: 18px; border: 2px dashed var(--border-color);
         }
         .no-results i { font-size: 3rem; margin-bottom: 16px; color: var(--primary); }
         .no-results p { font-size: 1.2rem; font-weight: 500; margin: 0; }
@@ -168,74 +267,169 @@
         .player-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 18px 18px 0 0; overflow: hidden; }
         .player-container iframe { width: 100%; height: 100%; border: none; }
         #player-title { padding: 16px 20px; font-size: 1.2rem; font-weight: 600; border-top: 1px solid var(--border-color); }
-        .sidebar-toggle { display: none; }
+
+
+        /* ======================================= */
+        /* --- RESPONSIVE STYLES (TABLET/MOBILE) --- */
+        /* ======================================= */
+
+        /* --- Tablet & Small Desktop (<= 1024px) --- */
         @media (max-width: 1024px) {
             .logo-text { display: none; }
             .sidebar-toggle { display: block; }
-            .sidebar { transform: translateX(100%); z-index: 1200; box-shadow: -5px 0 15px rgba(0,0,0,0.1); }
-            .sidebar.is-open { transform: translateX(0); }
             .main-content { margin-right: 0; padding: 24px; }
-            .overlay.is-visible { display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1199; }
-        }
-    </style>
-</head>
-<body>
 
-    <header class="top-bar">
-        <div class="header-controls">
-            <button class="sidebar-toggle" id="sidebar-toggle" aria-label="فتح القائمة"><i class="fas fa-bars"></i></button>
-            <button class="theme-toggle" id="theme-toggle" title="تغيير المظهر">
-                <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
-            </button>
+            .sidebar {
+                position: fixed;
+                top: 0; right: 0;
+                width: 320px;
+                height: 100vh;
+                padding-top: 70px; /* Space for header */
+                transform: translateX(100%); /* Hidden off-screen */
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 1200;
+                border-left: none;
+                transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+            }
+            .sidebar.is-open {
+                transform: translateX(0); /* Slide in */
+            }
+        }
+
+        /* --- Tablet Portrait (<= 768px) --- */
+        @media (max-width: 768px) {
+            .main-content { padding: 16px; }
+            .video-grid { grid-template-columns: 1fr; gap: 20px; }
+            .content-header h1 { font-size: 1.5rem; }
+            .video-card { border-radius: 16px; }
+            .video-thumbnail { border-radius: 16px 16px 0 0; }
+            .sidebar { width: 280px; }
+            .modal-content { width: 95vw; max-width: 95vw; }
+            #player-title { font-size: 1.1rem; padding: 12px 16px; }
+        }
+
+        /* --- Mobile Phone (<= 480px) --- */
+        @media (max-width: 480px) {
+            body { padding-top: 56px; }
+            .top-bar { padding: 0 12px; height: 56px; }
+            .logo-icon { width: 36px; height: 36px; border-radius: 8px; }
+            .logo-icon i { font-size: 1.2rem; }
+            .sidebar-toggle { padding: 6px 10px; font-size: 1.2rem; border-radius: 8px; }
+            .theme-toggle { font-size: 1.1rem; }
+
+            .sidebar { 
+                width: 85vw; /* Don't take full width, more aesthetic */
+                padding-top: 56px; 
+            }
+            .main-content { padding: 12px; }
+            .content-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+            .video-grid { gap: 16px; }
+            .video-card { border-radius: 12px; }
+            .video-thumbnail { border-radius: 12px 12px 0 0; }
+            .video-info { padding: 12px; }
+            .video-title { font-size: 1rem; }
+            
+            .modal-content { border-radius: 12px; padding: 0; width: 98vw; }
+            .player-container { border-radius: 12px 12px 0 0; }
+            .close-btn { width: 32px; height: 32px; font-size: 1rem; top: -12px; left: -12px; }
+            #player-title { font-size: 1rem; padding: 10px 12px;}
+        }
+
+        /* Floating filter buttons for mobile/tablet */
+        .floating-filters {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 16px;
+            z-index: 1300;
+            gap: 12px;
+            flex-direction: column;
+        }
+        .floating-filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-glow);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px var(--glow-color);
+            cursor: pointer;
+            margin-bottom: 6px;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+            .floating-filter-btn:active, .floating-filter-btn:focus {
+                background: var(--primary-dark);
+                box-shadow: 0 4px 16px var(--glow-color);
+                transform: scale(0.97);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top-bar">
+            <a href="#" class="logo">
+                <span class="logo-icon"><i class="fas fa-book"></i></span>
+                <span class="logo-text">المكتبة</span>
+            </a>
+            <div class="header-controls">
+                <button class="sidebar-toggle" id="sidebar-toggle" title="القائمة"><i class="fas fa-bars"></i></button>
+                <button class="theme-toggle" id="theme-toggle" title="تبديل الوضع">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+        <div class="page-container">
+            <aside class="sidebar" id="sidebar">
+                <button class="sidebar-close-btn" id="sidebar-close-btn" title="إغلاق"><i class="fas fa-times"></i></button>
+                <form id="filter-form" class="filter-form">
+                    <fieldset class="filter-group" id="category-filters"></fieldset>
+                    <fieldset class="filter-group" id="lang-filters"></fieldset>
+                </form>
+            </aside>
+            <div class="sidebar-mobile-overlay" id="sidebar-mobile-overlay"></div>
+    
+            <!-- Floating filter buttons for mobile/tablet -->
+            <div class="floating-filters" id="floating-filters" style="display:none;">
+                <button id="floating-category-btn" class="floating-filter-btn"><i class="fas fa-grip"></i><span>تصنيف</span></button>
+                <button id="floating-lang-btn" class="floating-filter-btn"><i class="fas fa-language"></i><span>اللغة</span></button>
+            </div>
+    
+            <main class="main-content">
+                <div class="content-header">
+                    <h1 id="content-title">كل الوثائقيات</h1>
+                    <div class="video-count-info"><span id="video-count">0</span></div>
+                </div>
+                <div class="video-grid" id="video-grid"></div>
+            </main>
         </div>
         
-        <a href="#" class="logo" onclick="window.location.reload()">
-            <div class="logo-text">المكتبة</div>
-            <div class="logo-icon"><i class="fas fa-film"></i></div>
-        </a>
-    </header>
-
-    <div class="page-container">
-        <nav class="sidebar" id="sidebar">
-            <form class="filter-form" id="filter-form">
-                <fieldset class="filter-group" id="category-filters"></fieldset>
-                <fieldset class="filter-group" id="lang-filters"></fieldset>
-            </form>
-        </nav>
-
-        <main class="main-content">
-            <div class="content-header">
-                <h1 id="content-title">كل الوثائقيات</h1>
-                <div class="video-count-info"><span id="video-count">0</span></div>
+        <div class="player-modal" id="player-modal">
+            <div class="modal-content">
+                <button class="close-btn" id="close-player-modal" title="إغلاق"><i class="fas fa-times"></i></button>
+                <div class="player-container" id="player-container"></div>
+                <h3 id="player-title"></h3>
             </div>
-            <div class="video-grid" id="video-grid"></div>
-        </main>
-    </div>
-    
-    <div class="overlay" id="overlay"></div>
-
-    <div class="player-modal" id="player-modal">
-        <div class="modal-content">
-            <button class="close-btn" id="close-player-modal" title="إغلاق"><i class="fas fa-times"></i></button>
-            <div class="player-container" id="player-container"></div>
-            <h3 id="player-title"></h3>
         </div>
-    </div>
-    
-    <script>
+        
+        <script>
     const allDocumentaries = [
         // --- History ---
-        { title: 'الخوف | أبُكاليبـس - الحرب العالمية الأولى', category: 'history', id: 'huyXH0lxpVM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/huyXH0lxpVM', duration: '45:12', views: '1.2M', uploadDate: '2023-05-10' },
-        { title: 'المعركة النهائية لهتلر: الكتيبة المفقودة', category: 'history', id: 'lE2B6DdFZBI', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/lE2B6DdFZBI', duration: '48:30', views: '875K', uploadDate: '2023-08-22' },
-        { title: 'مصر القديمة: توت عنخ آمون الجبار', category: 'history', id: 'udE4ehMwChc', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/udE4ehMwChc', duration: '52:05', views: '2.5M', uploadDate: '2024-01-15' },
-        // --- Science (All 5 videos restored) ---
-        { title: 'وثائقي | قوة الأفكار - لغز كبير يواجه العلم', category: 'science', id: 'ON7V2XiQFrM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/ON7V2XiQFrM', duration: '42:19', views: '980K', uploadDate: '2023-11-03' },
-        { title: 'Discover The Mysteries of the Human Brain', category: 'science', id: 'GsWfGTTgntA', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/GsWfGTTgntA', duration: '59:01', views: '10M', uploadDate: '2022-09-01' },
-        { title: 'How our brain judges people in a split second', category: 'science', id: 'XOfeqRgaF1A', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/XOfeqRgaF1A', duration: '28:44', views: '3.1M', uploadDate: '2023-03-18' },
-        { title: 'ذكاء الحشرات - كيف يطور النحل مهارات معقدة؟', category: 'science', id: '46mIoIdGCDw', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/46mIoIdGCDw', duration: '42:31', views: '450K', uploadDate: '2024-02-20' },
-        { title: 'هل يتحدث البشر والحيتان نفس اللغة ؟', category: 'science', id: 'cTNguGH4XdY', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/cTNguGH4XdY', duration: '15:23', views: '1.1M', uploadDate: '2024-04-05' },
+        { title: 'الخوف | أبُكاليبـس - الحرب العالمية الأولى', category: 'history', id: 'huyXH0lxpVM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/huyXH0lxpVM', duration: '45:12' },
+        { title: 'المعركة النهائية لهتلر: الكتيبة المفقودة', category: 'history', id: 'lE2B6DdFZBI', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/lE2B6DdFZBI', duration: '48:30' },
+        { title: 'مصر القديمة: توت عنخ آمون الجبار', category: 'history', id: 'udE4ehMwChc', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/udE4ehMwChc', duration: '52:05' },
+        // --- Science ---
+        { title: 'وثائقي | قوة الأفكار - لغز كبير يواجه العلم', category: 'science', id: 'ON7V2XiQFrM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/ON7V2XiQFrM', duration: '42:19' },
+        { title: 'Discover The Mysteries of the Human Brain', category: 'science', id: 'GsWfGTTgntA', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/GsWfGTTgntA', duration: '59:01' },
+        { title: 'How our brain judges people in a split second', category: 'science', id: 'XOfeqRgaF1A', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/XOfeqRgaF1A', duration: '28:44' },
+        { title: 'ذكاء الحشرات - كيف يطور النحل مهارات معقدة؟', category: 'science', id: '46mIoIdGCDw', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/46mIoIdGCDw', duration: '42:31' },
+        { title: 'هل يتحدث البشر والحيتان نفس اللغة ؟', category: 'science', id: 'cTNguGH4XdY', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/cTNguGH4XdY', duration: '15:23' },
         // --- Technology ---
-        { title: 'السباق نحو الذكاء الاصطناعيّ', category: 'technology', id: 'EpW4j-3sPP4', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/EpW4j-3sPP4', duration: '1:03:55', views: '4.7M', uploadDate: '2024-05-01' },
+        { title: 'السباق نحو الذكاء الاصطناعيّ', category: 'technology', id: 'EpW4j-3sPP4', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/EpW4j-3sPP4', duration: '1:03:55' },
+        { title: 'وثائقيات الجزيرة | عصر البيانات.. الاستخدامات الملموسة للذكاء الصناعي في حياة البشر', category: 'technology', id: '5bEBTUTX20M', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/5bEBTUTX20M', duration: '47:44' },
     ];
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -252,9 +446,11 @@
             closePlayerBtn: document.getElementById('close-player-modal'),
             themeToggle: document.getElementById('theme-toggle'),
             htmlEl: document.documentElement,
+            // NEW elements for mobile navigation
             sidebar: document.getElementById('sidebar'),
-            overlay: document.getElementById('overlay'),
             sidebarToggle: document.getElementById('sidebar-toggle'),
+            sidebarMobileOverlay: document.getElementById('sidebar-mobile-overlay'),
+            sidebarCloseBtn: document.getElementById('sidebar-close-btn'),
         };
 
         const maps = {
@@ -317,7 +513,7 @@
         
         const renderVideos = (docs) => {
             elements.videoGrid.innerHTML = '';
-            elements.videoCountEl.textContent = `${docs.length} وثائقي`;
+            elements.videoCountEl.textContent = `${docs.length} وثائقيات`;
             if (docs.length === 0) {
                 elements.videoGrid.innerHTML = `
                     <div class="no-results">
@@ -327,25 +523,25 @@
                 return;
             }
 
-            docs.forEach(doc => {
-                const card = document.createElement('div');
-                card.className = 'video-card';
-                card.innerHTML = `
-                    <div class="video-thumbnail">
-                        <img src="https://i.ytimg.com/vi/${doc.id}/hqdefault.jpg" alt="${doc.title}" loading="lazy">
-                        <div class="video-thumbnail-overlay"><i class="fas fa-play play-icon"></i></div>
-                        <span class="video-duration">${doc.duration}</span>
-                    </div>
-                    <div class="video-info">
-                        <div class="category-icon"><i class="fas ${maps.category[doc.category].icon}"></i></div>
-                        <div class="video-details">
-                            <h3 class="video-title">${doc.title}</h3>
-                            <div class="video-meta">${doc.views} مشاهدة <span>•</span> ${doc.uploadDate}</div>
-                        </div>
-                    </div>`;
-                card.addEventListener('click', () => openPlayerModal(doc));
-                elements.videoGrid.appendChild(card);
-            });
+    docs.forEach(doc => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.innerHTML = `
+            <div class="video-thumbnail">
+                <img src="https://i.ytimg.com/vi/${doc.id}/hqdefault.jpg" alt="${doc.title}" loading="lazy">
+                <div class="video-thumbnail-overlay"><i class="fas fa-play play-icon"></i></div>
+                <span class="video-duration">${doc.duration}</span>
+            </div>
+            <div class="video-info">
+                <div class="category-icon"><i class="fas ${maps.category[doc.category].icon}"></i></div>
+                <div class="video-details">
+                    <div class="video-title">${doc.title}</div>
+                </div>
+            </div>
+        `;
+        card.addEventListener('click', () => openPlayerModal(doc));
+        elements.videoGrid.appendChild(card);
+    });
         };
 
         const openPlayerModal = (doc) => {
@@ -361,14 +557,46 @@
             document.body.style.overflow = '';
         };
         
+        // --- NEW: Mobile Navigation Handler ---
         const setupMobileNav = () => {
-            elements.sidebarToggle.addEventListener('click', () => {
-                elements.sidebar.classList.toggle('is-open');
-                elements.overlay.classList.toggle('is-visible');
-            });
-            elements.overlay.addEventListener('click', () => {
+            const closeSidebar = () => {
                 elements.sidebar.classList.remove('is-open');
-                elements.overlay.classList.remove('is-visible');
+                elements.sidebarMobileOverlay.classList.remove('is-visible');
+                document.body.style.overflow = '';
+            };
+
+            const openSidebar = () => {
+                elements.sidebar.classList.add('is-open');
+                elements.sidebarMobileOverlay.classList.add('is-visible');
+                document.body.style.overflow = 'hidden';
+                // Focus the close button for accessibility
+                setTimeout(() => { elements.sidebarCloseBtn.focus(); }, 200);
+            };
+
+            elements.sidebarToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (elements.sidebar.classList.contains('is-open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+
+            elements.sidebarMobileOverlay.addEventListener('click', closeSidebar);
+            elements.sidebarCloseBtn.addEventListener('click', closeSidebar);
+
+            // Close sidebar when a filter is selected on mobile
+            elements.filterForm.addEventListener('change', () => {
+                if (window.innerWidth <= 1024) {
+                    closeSidebar();
+                }
+            });
+
+            // Allow closing sidebar with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && elements.sidebar.classList.contains('is-open')) {
+                    closeSidebar();
+                }
             });
         };
 
@@ -377,7 +605,7 @@
             setupTheme();
             populateFilters();
             filterAndRender();
-            setupMobileNav();
+            setupMobileNav(); // Initialize the new mobile navigation
 
             elements.filterForm.addEventListener('change', (e) => {
                 const formData = new FormData(elements.filterForm);
