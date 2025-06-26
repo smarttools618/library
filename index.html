@@ -1,948 +1,398 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المكتبة | منصة الوثائقيات</title>
+    <title>المكتبة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: linear-gradient(135deg, #0066ff 0%, #0040cc 100%);
-            --primary-dark: #002b80;
-            --background: linear-gradient(152deg, #f8f9fc 0%, #e6edff 100%);
-            --surface: rgba(255,255,255,0.98);
-            --gray: #1a2233;
-            --accent: #ffc107;
-            --radius: 20px;
-            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+            --ease-cubic: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        html[data-theme="light"] {
+            --primary: #0066ff;
+            --primary-dark: #0040cc;
+            --primary-glow: linear-gradient(135deg, #0066ff 0%, #0040cc 100%);
+            --background: #f0f2f5;
+            --surface: #ffffff;
+            --surface-secondary: #f8f9fc;
+            --text-primary: #1c1e21;
+            --text-secondary: #65676b;
+            --border-color: #e0e2e7;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --glow-color: rgba(0, 102, 255, 0.15);
+        }
+
+        html[data-theme="dark"] {
+            --primary: #2b8cff;
+            --primary-dark: #0066ff;
+            --primary-glow: linear-gradient(135deg, #2b8cff 0%, #0066ff 100%);
+            --background: #18191a;
+            --surface: #242526;
+            --surface-secondary: #3a3b3c;
+            --text-primary: #e4e6eb;
+            --text-secondary: #b0b3b8;
+            --border-color: #3e4042;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --glow-color: rgba(43, 140, 255, 0.2);
+        }
+        
+        /* --- Base & Layout --- */
         html { scroll-behavior: smooth; }
         body {
             background: var(--background);
-            color: var(--gray);
-            min-height: 100vh;
+            color: var(--text-primary);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
+            margin: 0;
+            padding-top: 70px;
+            transition: background 0.3s, color 0.3s;
         }
-        header {
-            background: none;
-            box-shadow: none;
-            padding: 32px 0 0 0;
+        .page-container { display: flex; }
+
+        /* --- Top Header Bar --- */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0; height: 70px;
+            background: var(--surface-transparent, rgba(255, 255, 255, 0.8));
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; z-index: 1100;
+            transition: background 0.3s, border-color 0.3s;
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            justify-content: center;
-            padding: 16px 0;
-        }
+        html[data-theme="dark"] .top-bar { --surface-transparent: rgba(36, 37, 38, 0.8); }
+
+        .logo { display: flex; align-items: center; gap: 12px; color: var(--text-primary); text-decoration: none; }
         .logo-icon {
-            background: var(--primary);
-            width: 64px; height: 64px; border-radius: 18px;
+            background: var(--primary-glow);
+            width: 44px; height: 44px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 16px rgba(0,89,255,0.15);
+            box-shadow: 0 4px 12px var(--glow-color);
         }
-        .logo-icon i { font-size: 1.8rem; color: #fff; }
-        .logo-text {
-            font-size: 2.4rem; font-weight: 800;
-            color: var(--primary-dark);
-            letter-spacing: -1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        .logo-icon i { font-size: 1.5rem; color: #fff; }
+        .logo-text { font-size: 1.5rem; font-weight: 800; }
+        .header-controls { display: flex; align-items: center; gap: 16px; }
+        .theme-toggle {
+            font-size: 1.3rem; color: var(--text-secondary); background: none;
+            border: none; cursor: pointer; padding: 8px;
+            transition: color 0.2s, transform 0.2s;
         }
-        .tagline {
-            text-align: center;
-            font-size: 1.3rem;
-            color: var(--primary-dark);
-            margin: 0 0 24px 0;
-            font-weight: 500;
-            letter-spacing: -0.5px;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto 24px;
-            padding: 0 24px;
-            line-height: 1.5;
+        .theme-toggle:hover { color: var(--primary); transform: scale(1.1) rotate(-15deg); }
+        .theme-toggle .fa-sun { display: none; }
+        html[data-theme="dark"] .theme-toggle .fa-sun { display: inline-block; }
+        html[data-theme="dark"] .theme-toggle .fa-moon { display: none; }
+
+        /* --- Right Sidebar --- */
+        .sidebar {
+            width: 250px; background: var(--surface);
+            padding: 24px 0; height: calc(100vh - 70px);
+            position: fixed; top: 70px; right: 0;
+            overflow-y: auto; border-left: 1px solid var(--border-color);
+            transition: transform 0.3s ease-in-out, background 0.3s, border-color 0.3s;
         }
-        .subtagline {
-            text-align: center;
-            font-size: 1.02rem;
-            color: #666;
-            margin-bottom: 28px;
+        .filter-form { padding: 0 16px; }
+        .filter-group { border: none; padding: 0; margin: 0 0 24px 0; }
+        .filter-group legend {
+            font-size: 0.9rem; text-transform: uppercase;
+            color: var(--text-secondary); padding: 0 8px;
+            margin-bottom: 12px; font-weight: 600;
         }
-        .filters-bar {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            background: var(--surface);
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0,89,255,0.08);
-            padding: 16px 24px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .filter-options { display: flex; flex-direction: column; gap: 8px; }
+        .filter-options input[type="radio"] { display: none; }
+        .filter-options label {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 16px; border-radius: 10px;
+            cursor: pointer; font-weight: 500;
+            transition: background 0.2s, color 0.2s;
         }
-        .filters-bar select {
-            padding: 10px 20px;
-            border-radius: 16px;
-            border: 2px solid #e0e7ef;
-            background: #f7faff;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            cursor: pointer;
+        .filter-options label:hover { background: var(--surface-secondary); }
+        .filter-options input:checked + label {
+            background: var(--primary-glow);
+            color: #fff; font-weight: 700;
+            box-shadow: 0 4px 10px var(--glow-color);
         }
-        
-        .filters-bar select:hover {
-            border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(0,89,255,0.1);
-        }
-        
-        .filters-bar select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0,102,255,0.15);
-        }
-        .search-bar-container {
-            display: flex;
-            justify-content: center;
-            align-items: stretch;
-            gap: 0;
-            background: linear-gradient(90deg, #e3eaff 0%, #f7f9fb 100%);
-            border-radius: 32px;
-            box-shadow: 0 4px 24px rgba(0,89,255,0.08);
-            padding: 0;
-            margin: 0 auto 36px auto;
-            max-width: 520px;
-            border: 2px solid #e0e7ef;
-            overflow: hidden;
-            transition: box-shadow 0.18s, border 0.18s;
-        }
-        .search-bar-container.active, .search-bar-container:focus-within {
-            box-shadow: 0 6px 32px rgba(0,89,255,0.13);
-            border: 2px solid var(--primary);
-        }
-        .search-input-wrapper {
-            flex: 1;
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        .search-input-wrapper input {
-            width: 100%;
-            padding: 18px 54px 18px 18px;
-            border: none;
-            border-radius: 0;
-            background: transparent;
-            font-size: 1.08rem;
-            outline: none;
-            color: var(--gray);
-            font-weight: 500;
-            letter-spacing: -0.5px;
-        }
-        .search-input-wrapper i {
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            color: var(--primary-dark);
-            font-size: 1.25rem;
-            pointer-events: none;
-        }
-        .video-count-info {
-            display: flex;
-            align-items: center;
-            background: var(--primary);
-            color: #fff;
-            font-size: 1.08rem;
-            font-weight: 600;
-            padding: 0 26px;
-            border-radius: 0 32px 32px 0;
-            letter-spacing: 0.5px;
-            min-width: 90px;
-            justify-content: center;
-        }
-        .video-count-info {
-            font-size: 1.2rem;
-            color: #fff;
-            margin-right: 10px;
-        }
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 32px;
-            max-width: 1400px;
-            margin: 0 auto 48px auto;
-            padding: 0 24px;
-        }
+        .filter-options i { width: 20px; text-align: center; }
+        .filter-options input:checked + label i { color: #fff !important; }
+
+        /* --- Main Content --- */
+        .main-content { flex: 1; margin-right: 250px; padding: 32px; }
+        .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .content-header h1 { font-size: 2rem; margin: 0; }
+        .video-count-info { font-size: 1rem; font-weight: 500; color: var(--text-secondary); background: var(--surface); padding: 8px 16px; border-radius: 12px; border: 1px solid var(--border-color); }
+
+        /* --- Video Card --- */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
         .video-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0,0,0,0.05);
-            cursor: pointer;
-            overflow: hidden;
+            background: var(--surface); border-radius: 18px;
+            display: flex; flex-direction: column; cursor: pointer;
+            transition: var(--ease-cubic);
+            box-shadow: 0 2px 4px var(--shadow-color);
+            border: 1px solid transparent;
         }
-        .video-card:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 12px 32px rgba(0,89,255,0.15);
-            border-color: rgba(0,89,255,0.2);
-        }
-        .video-card:focus-within, .video-card:focus {
-            outline: 2px solid var(--primary);
-            box-shadow: 0 4px 18px rgba(0,89,255,0.13);
-        }
-        .video-thumbnail {
-            position: relative;
-        }
-        .video-thumbnail img {
-            width: 100%;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            border-radius: var(--radius) var(--radius) 0 0;
-            transition: transform 0.3s ease;
-        }
-        .video-card:hover .video-thumbnail img {
-            transform: scale(1.05);
-        }
-        .video-info {
-            padding: 16px 16px 14px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-        .video-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--gray);
-            margin-bottom: 4px;
-            line-height: 1.4;
-            white-space: normal;
-            overflow-wrap: break-word;
-            word-break: break-word;
-            max-height: none;
-            display: block;
-            text-overflow: unset;
-        }
-        .video-category {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #fff;
-            border-radius: 12px;
-            padding: 4px 12px;
-            background: var(--primary);
-            align-self: flex-start;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .video-meta {
-            font-size: 0.92rem;
-            color: #888;
-            font-weight: 400;
-        }
+        .video-card:hover { transform: translateY(-8px); box-shadow: 0 8px 25px var(--shadow-color); }
+        html[data-theme="dark"] .video-card:hover { border-color: var(--primary); }
+        .video-thumbnail { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 18px 18px 0 0; overflow: hidden; }
+        .video-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .video-card:hover .video-thumbnail img { transform: scale(1.08); }
+        .video-thumbnail-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); opacity: 0; transition: var(--ease-cubic); }
+        .video-card:hover .video-thumbnail-overlay { opacity: 1; }
+        .play-icon { font-size: 3rem; color: #fff; transform: scale(0.8); transition: var(--ease-cubic); }
+        .video-card:hover .play-icon { transform: scale(1); }
+        .video-duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.75); color: #fff; padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+        .video-info { padding: 16px; display: flex; gap: 12px; align-items: flex-start; }
+        .category-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-glow); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .video-details { display: flex; flex-direction: column; min-width: 0; }
+        .video-title { font-size: 1.05rem; font-weight: 600; line-height: 1.5; margin: 0 0 6px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
+        .video-meta { font-size: 0.85rem; color: var(--text-secondary); }
+        .video-meta span { margin-left: 12px; }
+
+        /* --- Enhanced No Results --- */
         .no-results {
-            text-align: center;
-            color: #c0392b;
-            font-size: 1.2rem;
-            margin: 40px 0;
+            grid-column: 1 / -1;
+            text-align: center; color: var(--text-secondary);
+            padding: 60px 20px;
+            background: var(--surface);
+            border-radius: 18px;
+            border: 2px dashed var(--border-color);
         }
-        .back-to-top {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 54px;
-            height: 54px;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 18px rgba(0,89,255,0.18);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
-            cursor: pointer;
-            z-index: 1200;
-            border: 2.5px solid #fff;
-        }
-        .back-to-top.show { display: flex; animation: fadeIn 0.4s; }
-        .back-to-top:hover, .back-to-top:focus {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            transform: scale(1.08) rotate(-8deg);
-            box-shadow: 0 6px 24px rgba(0,89,255,0.22);
-        }
-        .floating-instructions-btn {
-            position: fixed;
-            bottom: 32px;
-            right: 32px;
-            background: linear-gradient(135deg, #0066ff 0%, #0040cc 100%);
-            color: #fff;
-            border: none;
-            border-radius: 16px;
-            width: auto;
-            height: 56px;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 16px rgba(0,89,255,0.2);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 24px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            z-index: 1300;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
+        .no-results i { font-size: 3rem; margin-bottom: 16px; color: var(--primary); }
+        .no-results p { font-size: 1.2rem; font-weight: 500; margin: 0; }
         
-        .floating-instructions-btn::after {
-            content: 'الدعم الفني';
-            font-weight: 600;
-            letter-spacing: -0.3px;
-        }
-        .floating-instructions-btn:hover, .floating-instructions-btn:focus {
-            background: linear-gradient(135deg, #0040cc 0%, #002b80 100%);
-            transform: scale(1.08) rotate(8deg);
-            box-shadow: 0 8px 32px rgba(0,89,255,0.3);
-            color: #fff;
-            border-color: rgba(255,255,255,0.5);
-        }
-        .instructions-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(8px);
-            z-index: 2001;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .instructions-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-        .instructions-modal.active { display: flex; }
-        .instructions-content {
-            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(245,248,255,0.95) 100%);
-            backdrop-filter: blur(24px);
-            border-radius: 28px;
-            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
-            max-width: 480px;
-            width: 90vw;
-            padding: 48px 32px 32px;
-            text-align: start;
-            position: relative;
-            border: 2px solid rgba(0,89,255,0.08);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        
-        .instructions-content i {
-            font-size: 1.4rem;
-            margin-left: 8px;
-        }
-        
-        .instructions-content .footer-email i {
-            color: #d44638;
-        }
-        
-        .instructions-content .footer-fb i {
-            color: #1877f2;
-        }
-        
-        .instructions-modal.active .instructions-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .instructions-content h2 { margin-bottom: 12px; color: var(--primary); font-size: 1.18rem; font-weight: 700; letter-spacing: -0.5px; }
-        .instructions-content a { 
-            display: block; 
-            margin: 10px 0; 
-            font-size: 1.05rem; 
-            color: var(--primary-dark); 
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .instructions-content a:hover { 
-            color: var(--primary); 
-            text-decoration: none;
-            border-bottom: 2px solid var(--primary);
-            color: white;
-        }
-        .close-instructions {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border: none;
-            color: #fff;
-            font-size: 1.25rem;
-            cursor: pointer;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,89,255,0.10);
-            transition: background 0.18s, transform 0.18s;
-        }
-        .close-instructions:hover, .close-instructions:focus {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            transform: scale(1.12) rotate(-8deg);
-        }
-        footer {
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(24px);
-            border-top: 1px solid rgba(0,0,0,0.05);
-            color: var(--primary-dark);
-            padding: 32px 0;
-            margin-top: 80px;
-            font-size: 1rem;
-            position: relative;
-        }
-        
-        footer::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-            opacity: 0.2;
-        }
-        .footer-content {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        .footer-email, .footer-fb {
-            color: var(--primary-dark);
-            font-size: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 24px;
-            border-radius: 12px;
-            background: rgba(0,0,0,0.03);
-            text-decoration: none;
-            border: 1px solid rgba(0,89,255,0.1);
-        }
-        
-        .footer-email i {
-            color: #d44638;
-            font-size: 1.4rem;
-        }
-        
-        .footer-fb i {
-            color: #1877f2;
-            font-size: 1.4rem;
-        }
-        .footer-email:hover, .footer-fb:hover { 
-            color: #fff;
-            background: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,89,255,0.2);
-            text-decoration: none;
-            border-color: rgba(0,89,255,0.3);
-            box-shadow: 0 4px 12px rgba(0,89,255,0.2);
-        }
-        @media (max-width: 600px) {
-            .search-bar-container { flex-direction: column; gap: 8px; padding: 12px; }
-            .video-grid { grid-template-columns: 1fr; }
-            .footer-content { flex-direction: column; gap: 8px; }
+        /* --- Player Modal & Responsive --- */
+        .player-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+        .player-modal.active { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--surface); border-radius: 18px; box-shadow: 0 15px 50px rgba(0,0,0,0.2); max-width: 900px; width: 90vw; position: relative; transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .player-modal.active .modal-content { transform: scale(1); }
+        .close-btn { position: absolute; top: -15px; left: -15px; background: var(--surface); border: none; color: var(--text-primary); font-size: 1.2rem; z-index: 2; cursor: pointer; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px var(--shadow-color); transition: transform 0.2s, color 0.2s; }
+        .close-btn:hover { transform: scale(1.1) rotate(90deg); color: var(--primary); }
+        .player-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 18px 18px 0 0; overflow: hidden; }
+        .player-container iframe { width: 100%; height: 100%; border: none; }
+        #player-title { padding: 16px 20px; font-size: 1.2rem; font-weight: 600; border-top: 1px solid var(--border-color); }
+        .sidebar-toggle { display: none; }
+        @media (max-width: 1024px) {
+            .logo-text { display: none; }
+            .sidebar-toggle { display: block; }
+            .sidebar { transform: translateX(100%); z-index: 1200; box-shadow: -5px 0 15px rgba(0,0,0,0.1); }
+            .sidebar.is-open { transform: translateX(0); }
+            .main-content { margin-right: 0; padding: 24px; }
+            .overlay.is-visible { display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1199; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <div class="logo-icon"><i class="fas fa-book-open"></i></div>
-            <div class="logo-text">المكتبة</div>
-        </div>
-        <div class="tagline">شاهد أفضل الأفلام الوثائقية العربية والعالمية بدون تشتيت</div>
-    </header>
-    <div class="search-bar-container" id="search-bar-container">
-        <div class="search-input-wrapper">
-            <input type="text" id="search-input" placeholder="ابحث عن وثائقي أو موضوع..." autocomplete="off" aria-label="بحث عن وثائقي">
-            <i class="fas fa-search"></i>
-        </div>
-        <div class="video-count-info"><span id="video-count"></span></div>
-    </div>
-    <div class="filters-bar">
-        <select id="category-filter">
-            <option value="all">كل التصنيفات</option>
-            <option value="history">التاريخ</option>
-            <option value="science">العلوم</option>
-            <option value="geography">الجغرافيا</option>
-            <option value="philosophy">الفلسفة</option>
-            <option value="arts">الفنون</option>
-        </select>
-        <select id="lang-filter">
-            <option value="all">كل اللغات</option>
-            <option value="ar">العربية</option>
-            <option value="en">English</option>
-        </select>
-    </div>
-    <div class="video-grid" id="video-grid"></div>
-    <div id="no-results" class="no-results">لا توجد نتائج.</div>
-    <button id="back-to-top" class="back-to-top" title="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
-    <button id="instructions-btn" class="floating-instructions-btn" title="تعليمات"><i class="fas fa-question-circle"></i></button>
-    <footer>
-        <div class="footer-content">
-            <a href="mailto:smarttools618@gmail.com" class="footer-email" title="راسلنا"><i class="fas fa-envelope"></i></a>
-            <a href="https://www.facebook.com/profile.php?id=61576965144664" class="footer-fb" target="_blank" rel="noopener" title="فيسبوك"><i class="fab fa-facebook"></i></a>
-        </div>
-    </footer>
-    <div id="instructions-modal" class="instructions-modal">
-        <div class="instructions-content">
-            <button class="close-instructions" title="إغلاق"><i class="fas fa-times"></i></button>
-            <h2>تواصل معنا</h2>
-            <a href="mailto:smarttools618@gmail.com" class="footer-email"><i class="fas fa-envelope"></i> smarttools618@gmail.com</a>
-            <a href="https://www.facebook.com/profile.php?id=61576965144664" class="footer-fb" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> صفحتنا على فيسبوك</a>
-        </div>
-    </div>
-    <script>
-        // Enhanced JS for search with autocomplete
-        const searchInput = document.getElementById('search-input');
-        const searchResults = document.createElement('div');
-        searchResults.id = 'search-results';
-        searchResults.style.display = 'none';
-        searchResults.style.position = 'absolute';
-        searchResults.style.width = '100%';
-        searchResults.style.background = 'white';
-        searchResults.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-        searchResults.style.borderRadius = '0 0 16px 16px';
-        searchResults.style.zIndex = '1000';
-        searchResults.style.maxHeight = '300px';
-        searchResults.style.overflowY = 'auto';
-        document.querySelector('.search-input-wrapper').appendChild(searchResults);
 
-        searchInput.addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            if (query.length < 1) {
-                searchResults.style.display = 'none';
+    <header class="top-bar">
+        <div class="header-controls">
+            <button class="sidebar-toggle" id="sidebar-toggle" aria-label="فتح القائمة"><i class="fas fa-bars"></i></button>
+            <button class="theme-toggle" id="theme-toggle" title="تغيير المظهر">
+                <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+            </button>
+        </div>
+        
+        <a href="#" class="logo" onclick="window.location.reload()">
+            <div class="logo-text">المكتبة</div>
+            <div class="logo-icon"><i class="fas fa-film"></i></div>
+        </a>
+    </header>
+
+    <div class="page-container">
+        <nav class="sidebar" id="sidebar">
+            <form class="filter-form" id="filter-form">
+                <fieldset class="filter-group" id="category-filters"></fieldset>
+                <fieldset class="filter-group" id="lang-filters"></fieldset>
+            </form>
+        </nav>
+
+        <main class="main-content">
+            <div class="content-header">
+                <h1 id="content-title">كل الوثائقيات</h1>
+                <div class="video-count-info"><span id="video-count">0</span></div>
+            </div>
+            <div class="video-grid" id="video-grid"></div>
+        </main>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <div class="player-modal" id="player-modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-player-modal" title="إغلاق"><i class="fas fa-times"></i></button>
+            <div class="player-container" id="player-container"></div>
+            <h3 id="player-title"></h3>
+        </div>
+    </div>
+    
+    <script>
+    const allDocumentaries = [
+        // --- History ---
+        { title: 'الخوف | أبُكاليبـس - الحرب العالمية الأولى', category: 'history', id: 'huyXH0lxpVM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/huyXH0lxpVM', duration: '45:12', views: '1.2M', uploadDate: '2023-05-10' },
+        { title: 'المعركة النهائية لهتلر: الكتيبة المفقودة', category: 'history', id: 'lE2B6DdFZBI', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/lE2B6DdFZBI', duration: '48:30', views: '875K', uploadDate: '2023-08-22' },
+        { title: 'مصر القديمة: توت عنخ آمون الجبار', category: 'history', id: 'udE4ehMwChc', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/udE4ehMwChc', duration: '52:05', views: '2.5M', uploadDate: '2024-01-15' },
+        // --- Science (All 5 videos restored) ---
+        { title: 'وثائقي | قوة الأفكار - لغز كبير يواجه العلم', category: 'science', id: 'ON7V2XiQFrM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/ON7V2XiQFrM', duration: '42:19', views: '980K', uploadDate: '2023-11-03' },
+        { title: 'Discover The Mysteries of the Human Brain', category: 'science', id: 'GsWfGTTgntA', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/GsWfGTTgntA', duration: '59:01', views: '10M', uploadDate: '2022-09-01' },
+        { title: 'How our brain judges people in a split second', category: 'science', id: 'XOfeqRgaF1A', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/XOfeqRgaF1A', duration: '28:44', views: '3.1M', uploadDate: '2023-03-18' },
+        { title: 'ذكاء الحشرات - كيف يطور النحل مهارات معقدة؟', category: 'science', id: '46mIoIdGCDw', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/46mIoIdGCDw', duration: '42:31', views: '450K', uploadDate: '2024-02-20' },
+        { title: 'هل يتحدث البشر والحيتان نفس اللغة ؟', category: 'science', id: 'cTNguGH4XdY', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/cTNguGH4XdY', duration: '15:23', views: '1.1M', uploadDate: '2024-04-05' },
+        // --- Technology ---
+        { title: 'السباق نحو الذكاء الاصطناعيّ', category: 'technology', id: 'EpW4j-3sPP4', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/EpW4j-3sPP4', duration: '1:03:55', views: '4.7M', uploadDate: '2024-05-01' },
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Element Selectors ---
+        const elements = {
+            videoGrid: document.getElementById('video-grid'),
+            videoCountEl: document.getElementById('video-count'),
+            filterForm: document.getElementById('filter-form'),
+            categoryFilters: document.getElementById('category-filters'),
+            langFilters: document.getElementById('lang-filters'),
+            playerModal: document.getElementById('player-modal'),
+            playerContainer: document.getElementById('player-container'),
+            playerTitle: document.getElementById('player-title'),
+            closePlayerBtn: document.getElementById('close-player-modal'),
+            themeToggle: document.getElementById('theme-toggle'),
+            htmlEl: document.documentElement,
+            sidebar: document.getElementById('sidebar'),
+            overlay: document.getElementById('overlay'),
+            sidebarToggle: document.getElementById('sidebar-toggle'),
+        };
+
+        const maps = {
+            category: {
+                all: { name: 'كل التصنيفات', icon: 'fa-grip' },
+                history: { name: 'التاريخ', icon: 'fa-landmark' },
+                science: { name: 'العلوم', icon: 'fa-flask' },
+                technology: { name: 'التقنية', icon: 'fa-microchip' },
+                geography: { name: 'الجغرافيا', icon: 'fa-globe-africa' },
+                philosophy: { name: 'الفلسفة', icon: 'fa-brain' },
+                arts: { name: 'الفنون', icon: 'fa-palette' },
+            },
+            lang: {
+                all: { name: 'كل اللغات', icon: 'fa-language' },
+                ar: { name: 'العربية', icon: 'fa-solid fa-a' },
+                en: { name: 'English', icon: 'fa-solid fa-e' },
+            }
+        };
+
+        // --- State ---
+        let state = {
+            category: 'all',
+            lang: 'all'
+        };
+
+        // --- Functions ---
+        const setupTheme = () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            elements.htmlEl.dataset.theme = savedTheme;
+            elements.themeToggle.addEventListener('click', () => {
+                const newTheme = elements.htmlEl.dataset.theme === 'light' ? 'dark' : 'light';
+                elements.htmlEl.dataset.theme = newTheme;
+                localStorage.setItem('theme', newTheme);
+            });
+        };
+
+        const populateFilters = () => {
+            const createOptions = (group, map) => {
+                let html = `<legend>${group === 'category' ? 'التصنيف' : 'اللغة'}</legend><div class="filter-options">`;
+                for (const [key, value] of Object.entries(map)) {
+                    html += `
+                        <input type="radio" id="${group}-${key}" name="${group}" value="${key}" ${key === 'all' ? 'checked' : ''}>
+                        <label for="${group}-${key}"><i class="fas ${value.icon}"></i> ${value.name}</label>
+                    `;
+                }
+                html += `</div>`;
+                return html;
+            };
+            elements.categoryFilters.innerHTML = createOptions('category', maps.category);
+            elements.langFilters.innerHTML = createOptions('lang', maps.lang);
+        };
+
+        const filterAndRender = () => {
+            const filtered = allDocumentaries.filter(doc =>
+                (state.category === 'all' || doc.category === state.category) &&
+                (state.lang === 'all' || doc.lang === state.lang)
+            );
+            renderVideos(filtered);
+        };
+        
+        const renderVideos = (docs) => {
+            elements.videoGrid.innerHTML = '';
+            elements.videoCountEl.textContent = `${docs.length} وثائقي`;
+            if (docs.length === 0) {
+                elements.videoGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-video-slash"></i>
+                        <p>لا توجد نتائج تطابق الفلاتر المختارة.</p>
+                    </div>`;
                 return;
             }
-            
-            const matches = allDocumentaries.filter(doc => 
-                doc.title.toLowerCase().includes(query) ||
-                doc.category.toLowerCase().includes(query)
-            );
-            
-            if (matches.length > 0) {
-                searchResults.innerHTML = matches.slice(0, 5).map(doc => 
-                    `<div style="padding: 12px; border-bottom: 1px solid #eee; cursor: pointer;">
-                        ${doc.title}
-                    </div>`
-                ).join('');
-                searchResults.style.display = 'block';
-            } else {
-                searchResults.style.display = 'none';
-            }
-        });
 
-        searchResults.addEventListener('click', function(e) {
-            if (e.target && e.target.nodeName === 'DIV') {
-                searchInput.value = e.target.textContent.trim();
-                searchResults.style.display = 'none';
-                // Trigger search
-                const event = new Event('input');
-                searchInput.dispatchEvent(event);
-            }
-        });
-
-        document.addEventListener('click', function(e) {
-            if (e.target !== searchInput && e.target !== searchResults) {
-                searchResults.style.display = 'none';
-            }
-        });
-
-        // Minimalist JS for search, render, and UI
-        const allDocumentaries = [
-            // --- التاريخ ---
-            {
-                title: 'الخوف | أبُكاليبـس - الحرب العالمية الأولى | ناشونال جيوغرافيك أبوظبي',
-                category: 'history',
-                id: 'huyXH0lxpVM',
-                lang: 'ar',
-                embed: 'https://www.youtube-nocookie.com/embed/huyXH0lxpVM?si=tEf2muLUYQFpZ_hk',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            {
-                title: 'المعركة النهائية لهتلر: الكتيبة المفقودة | ناشونال جيوغرافيك أبوظبي',
-                category: 'history',
-                id: 'lE2B6DdFZBI',
-                lang: 'ar',
-                embed: 'https://www.youtube-nocookie.com/embed/lE2B6DdFZBI?si=ue8-ygbnTVktsyvC',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            {
-                title: 'مصر القديمة: توت عنخ آمون الجبار | ناشونال جيوغرافيك أبوظبي',
-                category: 'history',
-                id: 'udE4ehMwChc',
-                lang: 'ar',
-                embed: 'https://www.youtube-nocookie.com/embed/udE4ehMwChc?si=0Wwp46zG4Tfh7UT7',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            // --- العلوم ---
-            {
-                title: 'وثائقي | قوة الأفكار - لغز كبير يواجه العلم | وثائقية دي دبليو',
-                category: 'science',
-                id: 'ON7V2XiQFrM',
-                lang: 'ar',
-                embed: 'https://www.youtube-nocookie.com/embed/ON7V2XiQFrM?si=RSd4Jdu8spUGJD2c&start=918',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            {
-                title: 'Discover The Mysteries of the Human Brain | BBC Earth Science',
-                category: 'science',
-                id: 'GsWfGTTgntA',
-                lang: 'en',
-                embed: 'https://www.youtube-nocookie.com/embed/GsWfGTTgntA?si=9kI5oGTI5QhJr4zg',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            {
-                title: 'How our brain judges people in a split second | DW Documentary',
-                category: 'science',
-                id: 'XOfeqRgaF1A',
-                lang: 'en',
-                embed: 'https://www.youtube-nocookie.com/embed/XOfeqRgaF1A?si=wLYm3QZl7Ej1BgOX',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            {
-                title: 'وثائقي | ذكاء الحشرات - كيف يطور النحل والدبابير مهارات ذهنية معقدة؟ | وثائقية دي دبليو',
-                category: 'science',
-                id: '46mIoIdGCDw',
-                lang: 'ar',
-                embed: 'https://www.youtube-nocookie.com/embed/46mIoIdGCDw?si=K79T4USjXaKWEpuI',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            {
-                title: 'وثائقي | هل يتحدث البشر والحيتان نفس اللغة ؟ | وثائقية دي دبليو',
-                category: 'science',
-                id: 'cTNguGH4XdY',
-                lang: 'ar',
-                embed: 'https://www.youtube-nocookie.com/embed/cTNguGH4XdY?si=2v0SLSNgclITjXPI',
-                upload: '26-06-2025',
-                duration: ''
-            },
-            // --- الجغرافيا ---
-            { title: 'الأمازون: رئة الأرض', category: 'geography', id: '5aRIz_1Mj3s', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'أسرار الصحراء الكبرى', category: 'geography', id: 'M-leIBw2i1k', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'جبال الهيمالايا الشاهقة', category: 'geography', id: 'xDf8wMh0tJc', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'الحيّد المرجاني العظيم', category: 'geography', id: 'hWksm21Fdwk', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'أنهار الجليد: عمالقة تتحرك', category: 'geography', id: 'iKacaRRB62s', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'أيسلندا: أرض النار والجليد', category: 'geography', id: 'yXzYl5pC_wE', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'البراكين: غضب الأرض', category: 'geography', id: 'BeP6hMa_24s', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'أسرار جزيرة مدغشقر', category: 'geography', id: 'npewY8Tgh_w', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'سيبيريا: برية متجمدة', category: 'geography', id: '1K8p0Yt5yac', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'دورة الماء في الطبيعة', category: 'geography', id: 'zBEw_2mO264', lang: 'ar', upload: '26-06-2025', duration: '' },
-            // --- الفلسفة ---
-            { title: 'مقدمة في الفلسفة: من هو الفيلسوف؟', category: 'philosophy', id: '1A_CAkYt3GY', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'أفلاطون وكهفه الشهير', category: 'philosophy', id: '1RWOpQXTltA', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'فلسفة الرواقية: كيف تعيش سعيداً', category: 'philosophy', id: 'R9OCA6UFE-0', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'نيتشه: فلسفة القوة والإنسان الأعلى', category: 'philosophy', id: 'wHWbZmg2hzU', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'الوجودية: معنى الحياة في عالم بلا معنى', category: 'philosophy', id: 'qK243zt_vJc', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'محاكمة سقراط: دفاع عن الحقيقة', category: 'philosophy', id: 'Cn_N3izp4sc', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'الفلسفة الشرقية: حكمة الطاو والزن', category: 'philosophy', id: 'iY8gGkL_g5U', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'مشكلة الشر: لماذا يسمح الله بالمعاناة؟', category: 'philosophy', id: '9E_0B_Vvpr0', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'ما هي العدالة؟ حوار مع جون رولز', category: 'philosophy', id: '5-JQ17X6VNg', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'أرسطو: البحث عن السعادة', category: 'philosophy', id: 'CssGjA8TAbE', lang: 'ar', upload: '26-06-2025', duration: '' },
-            // --- الفنون ---
-            { title: 'ليوناردو دافنشي: عبقرية عصر النهضة', category: 'arts', id: 'jZn4E8-yS-g', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'أسرار لوحة الموناليزا', category: 'arts', id: 'IitbJj3QL-g', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'فان جوخ: على حافة الجنون', category: 'arts', id: 'qv8TANh8e_I', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'تاريخ الفن في 10 دقائق', category: 'arts', id: 'zpgrjS7tGvE', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'موسيقى موزارت: سيمفونية العبقرية', category: 'arts', id: 'Rb0UmrCXxVA', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'العمارة الإسلامية: إبداع يتحدى الزمن', category: 'arts', id: 'O35JzL55O_M', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'بابلو بيكاسو والثورة التكعيبية', category: 'arts', id: 'W0eC1yp87oE', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'فن الشارع: من الجدران إلى المتاحف', category: 'arts', id: 'yA0gp2fsCgY', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'سحر السينما الصامتة', category: 'arts', id: 'Y7y9c4zEa1I', lang: 'ar', upload: '26-06-2025', duration: '' },
-            { title: 'مايكل أنجلو وسقف كنيسة سيستين', category: 'arts', id: '1vug2Ab9S6k', lang: 'ar', upload: '26-06-2025', duration: '' },
-        ];
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const videoGrid = document.getElementById('video-grid');
-            const searchInput = document.getElementById('search-input');
-            const noResults = document.getElementById('no-results');
-
-            // ================== !! هام: قم بتغيير هذا السطر لكل صفحة تصنيف !! ==================
-            // استخدم 'all' للصفحة الرئيسية، و 'history', 'science', 'geography', 'philosophy', 'arts' للصفحات المخصصة
-            const categoryToDisplay = 'all'; 
-            // ===================================================================================
-
-            // ========== تحسين تجربة البحث والتصفية ========== //
-            function getFilteredDocs(searchTerm = '') {
-                const cat = document.getElementById('category-filter').value;
-                const lang = document.getElementById('lang-filter').value;
-                const term = searchTerm.trim().toLowerCase();
-                let filtered = allDocumentaries.filter(doc =>
-                    (cat === 'all' || doc.category === cat) &&
-                    (lang === 'all' || (doc.lang || 'ar') === lang) &&
-                    (!term || doc.title.toLowerCase().includes(term))
-                );
-                // إبقاء 3 فقط للعلوم في الصفحة الرئيسية فقط
-                if (cat === 'all' && filtered.some(d => d.category === 'science')) {
-                    const scienceDocs = filtered.filter(d => d.category === 'science').slice(0, 3);
-                    filtered = filtered.filter(d => d.category !== 'science').concat(scienceDocs);
-                }
-                return filtered;
-            }
-            let lastSearchTerm = '';
-            let documentariesToRender = getFilteredDocs();
-
-            // Debounce for search input
-            function debounce(fn, delay) {
-                let timer = null;
-                return function(...args) {
-                    clearTimeout(timer);
-                    timer = setTimeout(() => fn.apply(this, args), delay);
-                };
-            }
-
-            function renderVideos(docs) {
-                videoGrid.innerHTML = '';
-                if (docs.length === 0) {
-                    noResults.style.display = 'block';
-                    document.getElementById('video-count').textContent = '0 وثائقي';
-                    return;
-                }
-                noResults.style.display = 'none';
-                let count = 0;
-                docs.forEach(doc => {
-                    const videoCard = document.createElement('div');
-                    videoCard.className = 'video-card';
-                    videoCard.setAttribute('tabindex', '0');
-                    videoCard.setAttribute('data-title', doc.title.toLowerCase());
-                    videoCard.style.padding = '0';
-                    videoCard.style.overflow = 'hidden';
-                    videoCard.style.display = 'flex';
-                    videoCard.style.flexDirection = 'column';
-                    videoCard.style.position = 'relative';
-                    videoCard.style.border = 'none';
-                    videoCard.style.boxShadow = '0 4px 18px rgba(0,89,255,0.08)';
-                    videoCard.style.background = 'linear-gradient(135deg, #fafdff 0%, #e6edff 100%)';
-                    videoCard.style.borderRadius = '22px';
-                    videoCard.style.transition = 'box-shadow 0.25s, transform 0.25s, background 0.25s';
-                    videoCard.innerHTML = `
-                        <div class="video-thumbnail" style="position:relative;cursor:pointer;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border-radius:22px 22px 0 0;transition:box-shadow 0.25s;">
-                            <img src="https://i.ytimg.com/vi/${doc.id}/hqdefault.jpg" alt="${doc.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.97) contrast(1.09) saturate(1.13);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), filter 0.35s cubic-bezier(0.4,0,0.2,1);border-radius:22px 22px 0 0;">
-                            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.48);color:#fff;font-size:0.97rem;padding:4px 13px;border-radius:13px;backdrop-filter:blur(2px);font-weight:600;letter-spacing:0.2px;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.10);">${getCategoryName(doc.category)}</div>
-                        </div>
-                        <div class="video-info" style="padding:18px 18px 14px 18px;display:flex;flex-direction:column;gap:8px;background:transparent;align-items:flex-start;">
-                            <div style="width:100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;">
-                                <h3 class="video-title" style="margin-bottom:0;font-size:1.13rem;font-weight:800;color:#1a2233;line-height:1.6;letter-spacing:-0.2px;white-space:normal;overflow-wrap:break-word;word-break:break-word;max-height:none;flex:1;">${doc.title}</h3>
-                                ${doc.lang === 'en' ? '<span style="background:#e0e7ef;color:#0040cc;font-size:0.93rem;padding:2px 11px;border-radius:8px;font-weight:700;box-shadow:0 1px 4px rgba(0,64,204,0.07);margin-right:4px;">EN</span>' : ''}
-                            </div>
-                            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                                <span class="video-meta" style="font-size:0.99rem;color:#4a5a7a;font-weight:500;">${doc.upload ? 'تاريخ النشر: ' + doc.upload : ''}</span>
-                            </div>
-                        </div>
-                        <div style="position:absolute;bottom:0;left:0;width:100%;height:6px;background:linear-gradient(90deg,#0066ff 0%,#ffc107 100%);opacity:0.11;border-radius:0 0 22px 22px;"></div>
-                    `;
-                    // Smooth hover effect for card and thumbnail
-                    videoCard.addEventListener('mouseenter', function() {
-                        this.style.boxShadow = '0 12px 36px rgba(0,89,255,0.16)';
-                        this.style.transform = 'translateY(-4px) scale(1.025)';
-                        this.style.background = 'linear-gradient(135deg, #f3f8ff 0%, #e6edff 100%)';
-                        const img = this.querySelector('img');
-                        img.style.transform = 'scale(1.045)';
-                        img.style.filter = 'brightness(1.01) contrast(1.13) saturate(1.18)';
-                    });
-                    videoCard.addEventListener('mouseleave', function() {
-                        this.style.boxShadow = '0 4px 18px rgba(0,89,255,0.08)';
-                        this.style.transform = 'none';
-                        this.style.background = 'linear-gradient(135deg, #fafdff 0%, #e6edff 100%)';
-                        const img = this.querySelector('img');
-                        img.style.transform = '';
-                        img.style.filter = 'brightness(0.97) contrast(1.09) saturate(1.13)';
-                    });
-                    // Open modal on click or keyboard
-                    videoCard.querySelector('.video-thumbnail').onclick = function(e) {
-                        e.preventDefault();
-                        openPlayerModal(doc.embed, doc.title);
-                    };
-                    videoCard.onkeydown = function(e) {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            openPlayerModal(doc.embed, doc.title);
-                        }
-                    };
-                    videoGrid.appendChild(videoCard);
-                    count++;
-                });
-                document.getElementById('video-count').textContent = `${count} وثائقي`;
-            }
-
-
-            // Modal player logic (restored, uses embed code)
-            let playerModal = document.getElementById('player-modal');
-            if (!playerModal) {
-                playerModal = document.createElement('div');
-                playerModal.id = 'player-modal';
-                playerModal.innerHTML = `
-                    <div class="modal-content" style="background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,0.18);max-width:720px;width:96vw;padding:0;position:relative;">
-                        <button class="close-btn" title="إغلاق" style="position:absolute;top:10px;left:10px;background:linear-gradient(135deg, var(--primary), var(--primary-dark));border:none;color:#fff;font-size:1.3rem;z-index:2;cursor:pointer;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,89,255,0.10);transition:background 0.18s,transform 0.18s;" onmouseover="this.style.background='linear-gradient(135deg, var(--primary-dark), var(--primary))';this.style.transform='scale(1.12) rotate(-8deg)';" onmouseout="this.style.background='linear-gradient(135deg, var(--primary), var(--primary-dark))';this.style.transform='none';"><i class="fas fa-times"></i></button>
-                        <div class="player-container" id="player-container" style="padding:0;"></div>
-                        <div id="player-title" style="padding:12px 18px 10px 18px;font-size:1.08rem;font-weight:600;color:#222;text-align:center;"></div>
+            docs.forEach(doc => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.innerHTML = `
+                    <div class="video-thumbnail">
+                        <img src="https://i.ytimg.com/vi/${doc.id}/hqdefault.jpg" alt="${doc.title}" loading="lazy">
+                        <div class="video-thumbnail-overlay"><i class="fas fa-play play-icon"></i></div>
+                        <span class="video-duration">${doc.duration}</span>
                     </div>
-                `;
-                playerModal.style.display = 'none';
-                playerModal.style.position = 'fixed';
-                playerModal.style.top = '0';
-                playerModal.style.left = '0';
-                playerModal.style.width = '100vw';
-                playerModal.style.height = '100vh';
-                playerModal.style.background = 'rgba(0,0,0,0.45)';
-                playerModal.style.zIndex = '2001';
-                playerModal.style.alignItems = 'center';
-                playerModal.style.justifyContent = 'center';
-                playerModal.style.display = 'flex';
-                playerModal.style.visibility = 'hidden';
-                playerModal.style.opacity = '0';
-                playerModal.style.transition = 'opacity 0.2s';
-                document.body.appendChild(playerModal);
-            }
-            function openPlayerModal(embedUrl, title) {
-                const container = document.getElementById('player-container');
-                container.innerHTML = `<iframe width="100%" height="420" src="${embedUrl}" title="${title}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius:18px 18px 0 0;width:100%;min-height:320px;"></iframe>`;
-                document.getElementById('player-title').textContent = title;
-                playerModal.style.visibility = 'visible';
-                playerModal.style.opacity = '1';
-            }
-            playerModal.querySelector('.close-btn').addEventListener('click', function() {
-                document.getElementById('player-container').innerHTML = '';
-                playerModal.style.visibility = 'hidden';
-                playerModal.style.opacity = '0';
+                    <div class="video-info">
+                        <div class="category-icon"><i class="fas ${maps.category[doc.category].icon}"></i></div>
+                        <div class="video-details">
+                            <h3 class="video-title">${doc.title}</h3>
+                            <div class="video-meta">${doc.views} مشاهدة <span>•</span> ${doc.uploadDate}</div>
+                        </div>
+                    </div>`;
+                card.addEventListener('click', () => openPlayerModal(doc));
+                elements.videoGrid.appendChild(card);
             });
-            playerModal.addEventListener('click', function(e) {
-                if (e.target === playerModal) {
-                    document.getElementById('player-container').innerHTML = '';
-                    playerModal.style.visibility = 'hidden';
-                    playerModal.style.opacity = '0';
-                }
+        };
+
+        const openPlayerModal = (doc) => {
+            elements.playerContainer.innerHTML = `<iframe src="${doc.embed}?autoplay=1&rel=0" title="${doc.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            elements.playerTitle.textContent = doc.title;
+            elements.playerModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closePlayerModal = () => {
+            elements.playerContainer.innerHTML = '';
+            elements.playerModal.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        
+        const setupMobileNav = () => {
+            elements.sidebarToggle.addEventListener('click', () => {
+                elements.sidebar.classList.toggle('is-open');
+                elements.overlay.classList.toggle('is-visible');
             });
-            document.addEventListener('keydown', function(e) {
-                if (playerModal.style.visibility === 'visible' && (e.key === 'Escape' || e.key === 'Esc')) {
-                    document.getElementById('player-container').innerHTML = '';
-                    playerModal.style.visibility = 'hidden';
-                    playerModal.style.opacity = '0';
-                }
+            elements.overlay.addEventListener('click', () => {
+                elements.sidebar.classList.remove('is-open');
+                elements.overlay.classList.remove('is-visible');
             });
+        };
 
-            function getCategoryName(key) {
-                const names = {
-                    history: 'التاريخ', science: 'العلوم', geography: 'الجغرافيا',
-                    philosophy: 'الفلسفة', arts: 'الفنون'
-                };
-                return names[key] || key;
-            }
+        // --- Initialization ---
+        function init() {
+            setupTheme();
+            populateFilters();
+            filterAndRender();
+            setupMobileNav();
 
-            // ========== بحث متقدم مع Debounce وتصفية فورية ========== //
-            const searchBarContainer = document.getElementById('search-bar-container');
-            function updateSearchBarActive() {
-                if (searchInput === document.activeElement || searchInput.value.length > 0) {
-                    searchBarContainer.classList.add('active');
-                } else {
-                    searchBarContainer.classList.remove('active');
-                }
-            }
-            searchInput.addEventListener('focus', updateSearchBarActive);
-            searchInput.addEventListener('blur', updateSearchBarActive);
-            searchInput.addEventListener('input', debounce(function(e) {
-
-                lastSearchTerm = e.target.value;
-                documentariesToRender = getFilteredDocs(lastSearchTerm);
-                renderVideos(documentariesToRender);
-                updateSearchBarActive();
-            }, 200));
-
-            document.getElementById('category-filter').addEventListener('change', function() {
-                documentariesToRender = getFilteredDocs();
-                renderVideos(documentariesToRender);
-                searchInput.value = '';
-                lastSearchTerm = '';
-            });
-            document.getElementById('lang-filter').addEventListener('change', function() {
-                documentariesToRender = getFilteredDocs();
-                renderVideos(documentariesToRender);
-                searchInput.value = '';
-                lastSearchTerm = '';
+            elements.filterForm.addEventListener('change', (e) => {
+                const formData = new FormData(elements.filterForm);
+                state.category = formData.get('category');
+                state.lang = formData.get('lang');
+                filterAndRender();
             });
 
-            // ========== تحسين تجربة التنقل بلوحة المفاتيح ========== //
-            videoGrid.addEventListener('keydown', function(e) {
-                if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)) return;
-                const cards = Array.from(videoGrid.querySelectorAll('.video-card'));
-                const idx = cards.indexOf(document.activeElement);
-                if (idx === -1) return;
-                let nextIdx = idx;
-                if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextIdx = Math.max(0, idx-1);
-                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextIdx = Math.min(cards.length-1, idx+1);
-                cards[nextIdx].focus();
-                e.preventDefault();
-            });
+            elements.closePlayerBtn.addEventListener('click', closePlayerModal);
+            elements.playerModal.addEventListener('click', (e) => e.target === elements.playerModal && closePlayerModal());
+            document.addEventListener('keydown', (e) => e.key === 'Escape' && elements.playerModal.classList.contains('active') && closePlayerModal());
+        }
 
-            // العرض الأولي للفيديوهات
-            renderVideos(documentariesToRender);
-
-            // زر العودة للأعلى
-            const backToTopBtn = document.getElementById('back-to-top');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            });
-            backToTopBtn.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // تعليمات (زر عائم ونافذة)
-            const instructionsBtn = document.getElementById('instructions-btn');
-            const instructionsModal = document.getElementById('instructions-modal');
-            const closeInstructions = document.querySelector('.close-instructions');
-            if (instructionsBtn && instructionsModal && closeInstructions) {
-                instructionsBtn.addEventListener('click', function() {
-                    instructionsModal.classList.add('active');
-                });
-                closeInstructions.addEventListener('click', function() {
-                    instructionsModal.classList.remove('active');
-                });
-                instructionsModal.addEventListener('click', function(e) {
-                    if (e.target === instructionsModal) instructionsModal.classList.remove('active');
-                });
-            }
-        });
+        init();
+    });
     </script>
 </body>
 </html>
