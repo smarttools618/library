@@ -97,26 +97,57 @@
         }
         .reset-filters-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
         .main-content { flex: 1; margin-right: 250px; padding: 32px; transition: margin-right 0.3s, padding 0.3s; }
-        .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
         .content-header h1 { font-size: 2rem; margin: 0; transition: opacity 0.3s, transform 0.3s; }
         .video-count-info { font-size: 1rem; font-weight: 500; color: var(--text-secondary); background: var(--surface); padding: 8px 16px; border-radius: 12px; border: 1px solid var(--border-color); }
-        .selected-filters-summary {
-            display: none;
-            margin-bottom: 18px;
-            background: var(--surface-secondary);
-            color: var(--text-secondary);
-            border-radius: 10px;
-            padding: 10px 16px;
+        /* --- NEW: Search Bar Styles --- */
+        .search-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 14px 48px 14px 20px;
             font-size: 1rem;
-            font-weight: 500;
+            font-family: inherit;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            text-align: center;
+            background: var(--surface);
+            color: var(--text-primary);
+            transition: var(--ease-cubic);
+            -webkit-appearance: none;
         }
-        @media (max-width: 1024px) {
-            .selected-filters-summary {
-                display: block !important;
-            }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--glow-color);
         }
+        .search-container .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 18px;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        input[type="search"]::-webkit-search-cancel-button {
+             -webkit-appearance: none;
+            height: 1.2em;
+            width: 1.2em;
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2365676b'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>") center/cover no-repeat;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        input[type="search"]::-webkit-search-cancel-button:hover {
+            opacity: 1;
+        }
+        .selected-filters-summary {
+            display: none; margin-bottom: 18px; background: var(--surface-secondary);
+            color: var(--text-secondary); border-radius: 10px; padding: 10px 16px;
+            font-size: 1rem; font-weight: 500; border: 1px solid var(--border-color); text-align: center;
+        }
+        @media (max-width: 1024px) { .selected-filters-summary { display: block !important; } }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
         .video-card {
             background: var(--surface); border-radius: 18px; display: flex; flex-direction: column;
@@ -164,7 +195,6 @@
         .player-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 18px 18px 0 0; overflow: hidden; }
         .player-container iframe { width: 100%; height: 100%; border: none; }
         #player-title { padding: 16px 20px; font-size: 1.2rem; font-weight: 600; border-top: 1px solid var(--border-color); }
-        /* ---- NEW CSS FOR HELP MODAL ---- */
         .help-modal-header { padding: 16px 24px; border-bottom: 1px solid var(--border-color); text-align: center; }
         .help-modal-header h3 { margin: 0; font-size: 1.3rem; color: var(--primary); }
         .help-modal-body { padding: 24px; }
@@ -178,8 +208,15 @@
         .contact-item:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px var(--glow-color); }
         .contact-item i { font-size: 1.5rem; width: 28px; text-align: center; color: var(--primary); transition: color 0.3s; }
         .contact-item:hover i { color: #fff; }
-        /* ---- END NEW CSS ---- */
         .floating-controls, .filter-modal { display: none; }
+        #scroll-trigger { height: 50px; width: 100%; grid-column: 1 / -1; }
+        .loader {
+            width: 48px; height: 48px; border: 5px solid var(--primary);
+            border-bottom-color: transparent; border-radius: 50%;
+            display: none; margin: 20px auto; box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @media (max-width: 1024px) {
             .logo-text, .sidebar { display: none; }
             .main-content { margin-right: 0; padding: 24px; }
@@ -250,7 +287,6 @@
             <span class="logo-text">المكتبة</span>
         </a>
         <div class="header-controls">
-            <!-- NEW: Help Button -->
             <button class="header-btn" id="help-btn" aria-label="مساعدة و تواصل">
                 <i class="fas fa-question-circle"></i>
             </button>
@@ -277,8 +313,20 @@
                 <h1 id="content-title"></h1>
                 <div class="video-count-info"><span id="video-count">0</span></div>
             </div>
+            
+            <!-- NEW: Search Bar -->
+            <div class="search-container">
+                <input type="search" id="search-input" class="search-input" placeholder="ابحث عن وثائقي...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
             <div class="selected-filters-summary" id="selected-filters-summary" style="display:none;"></div>
             <div class="video-grid" id="video-grid"></div>
+            
+            <!-- NEW: Scroll Trigger & Loader for Infinite Scroll -->
+            <div id="scroll-trigger"></div>
+            <div class="loader" id="loader"></div>
+
         </main>
     </div>
 
@@ -306,23 +354,18 @@
         </div>
     </div>
 
-    <!-- NEW: Help Modal -->
     <div class="player-modal" id="help-modal">
         <div class="modal-content" style="max-width: 450px;">
             <button class="close-btn" id="close-help-modal" aria-label="إغلاق"><i class="fas fa-times"></i></button>
-            <div class="help-modal-header">
-                <h3>تواصل معنا</h3>
-            </div>
+            <div class="help-modal-header"><h3>تواصل معنا</h3></div>
             <div class="help-modal-body">
                 <p>لأية استفسارات أو اقتراحات، يمكنكم التواصل معنا عبر:</p>
                 <div class="contact-info">
                     <a href="mailto:smarttools618@gmail.com" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>smarttools618@gmail.com</span>
+                        <i class="fas fa-envelope"></i><span>smarttools618@gmail.com</span>
                     </a>
                     <a href="https://www.facebook.com/profile.php?id=61576965144664" target="_blank" rel="noopener noreferrer" class="contact-item">
-                        <i class="fab fa-facebook"></i>
-                        <span>صفحتنا على فيسبوك</span>
+                        <i class="fab fa-facebook"></i><span>صفحتنا على فيسبوك</span>
                     </a>
                 </div>
             </div>
@@ -330,25 +373,32 @@
     </div>
 
     <script>
-    // --- Documentary Data ---
-    const allDocumentaries = [
-        { title: 'الخوف | أبُكاليبـس - الحرب العالمية الأولى', category: 'history', id: 'huyXH0lxpVM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/huyXH0lxpVM', duration: '45:12' },
-        { title: 'المعركة النهائية لهتلر: الكتيبة المفقودة', category: 'history', id: 'lE2B6DdFZBI', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/lE2B6DdFZBI', duration: '48:30' },
-        { title: 'مصر القديمة: توت عنخ آمون الجبار', category: 'history', id: 'udE4ehMwChc', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/udE4ehMwChc', duration: '52:05' },
-        { title: 'Le Monde perdu des Mayas', category: 'history', id: '7MFKy7DJsCY', lang: 'fr', embed: 'https://www.youtube-nocookie.com/embed/7MFKy7DJsCY', duration: '52:00' },
-        { title: 'The Rise of the Roman Empire', category: 'history', id: 'zxKPjD8urG4', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/zxKPjD8urG4', duration: '50:00' },
-        { title: 'وثائقي | قوة الأفكار - لغز كبير يواجه العلم', category: 'science', id: 'ON7V2XiQFrM', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/ON7V2XiQFrM', duration: '42:19' },
-        { title: 'Discover The Mysteries of the Human Brain', category: 'science', id: 'GsWfGTTgntA', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/GsWfGTTgntA', duration: '59:01' },
-        { title: 'How our brain judges people in a split second', category: 'science', id: 'XOfeqRgaF1A', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/XOfeqRgaF1A', duration: '28:44' },
-        { title: 'Uncovering the Secrets of the Sun', category: 'science', id: 'SLmWY_ycFUA', lang: 'en', embed: 'https://www.youtube-nocookie.com/embed/SLmWY_ycFUA', duration: '54:00' },
-        { title: 'ذكاء الحشرات - كيف يطور النحل مهارات معقدة؟', category: 'science', id: '46mIoIdGCDw', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/46mIoIdGCDw', duration: '42:31' },
-        { title: 'هل يتحدث البشر والحيتان نفس اللغة ؟', category: 'science', id: 'cTNguGH4XdY', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/cTNguGH4XdY', duration: '15:23' },
-        { title: 'اكتشاف عالم المحيطات: المدن الغارقة', category: 'geography', id: '8zdcwa28KSc', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/8zdcwa28KSc', duration: '44:00' },
-        { title: 'السباق نحو الذكاء الاصطناعيّ', category: 'technology', id: 'EpW4j-3sPP4', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/EpW4j-3sPP4', duration: '1:03:55' },
-        { title: 'عصر البيانات.. الاستخدامات الملموسة للذكاء الصناعي في حياة البشر', category: 'technology', id: '5bEBTUTX20M', lang: 'ar', embed: 'https://www.youtube-nocookie.com/embed/5bEBTUTX20M', duration: '47:44' },
-    ];
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Element Selectors ---
+    let allDocumentaries = [];
+    // --- Infinite Scroll & Search State ---
+    let currentFilteredVideos = [];
+    let currentPage = 1;
+    const videosPerPage = 12;
+    let isLoading = false;
+
+    function fetchDocumentariesAndInit() {
+        fetch('videos.json')
+            .then(response => {
+                if (!response.ok) { throw new Error('Network response was not ok'); }
+                return response.json();
+            })
+            .then(data => {
+                allDocumentaries = data;
+                document.dispatchEvent(new Event('videosLoaded'));
+            })
+            .catch(err => {
+                console.error('Error loading videos.json:', err);
+                document.getElementById('video-grid').innerHTML = `<div class="no-results" style="grid-column: 1 / -1;"><i class="fas fa-exclamation-triangle"></i><p>فشل تحميل البيانات. الرجاء المحاولة مرة أخرى لاحقاً.</p></div>`;
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchDocumentariesAndInit);
+
+    document.addEventListener('videosLoaded', function() {
         const elements = {
             htmlEl: document.documentElement,
             themeToggle: document.getElementById('theme-toggle'),
@@ -371,118 +421,29 @@
             playerTitle: document.getElementById('player-title'),
             closePlayerBtn: document.getElementById('close-player-modal'),
             selectedFiltersSummary: document.getElementById('selected-filters-summary'),
-            // NEW: Help Modal Elements
             helpBtn: document.getElementById('help-btn'),
             helpModal: document.getElementById('help-modal'),
             closeHelpBtn: document.getElementById('close-help-modal'),
+            // NEW: Search and Infinite Scroll elements
+            searchInput: document.getElementById('search-input'),
+            scrollTrigger: document.getElementById('scroll-trigger'),
+            loader: document.getElementById('loader'),
         };
-        // --- Flags for Language Icons ---
+
         const flags = {
-            // KSA flag PNG (round) from countryflags.com
             ar: 'https://cdn.countryflags.com/thumbs/saudi-arabia/flag-round-500.png',
             en: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cclipPath id='a'%3e%3cpath d='M0,0 v30 h60 v-30 z'/%3e%3c/clipPath%3e%3cpath d='M0,0 v30 h60 v-30 z' fill='%2300247d'/%3e%3cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6' clip-path='url(%23a)'/%3e%3cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23cf142b' stroke-width='4' clip-path='url(%23a)'/%3e%3cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3e%3cpath d='M30,0 v30 M0,15 h60' stroke='%23cf142b' stroke-width='6'/%3e%3c/svg%3e`,
             fr: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3e%3crect width='900' height='600' fill='%23ED2939'/%3e%3crect width='600' height='600' fill='%23fff'/%3e%3crect width='300' height='600' fill='%23002395'/%3e%3c/svg%3e`
         };
-        // --- Maps for Filters ---
+
         const maps = {
-            category: {
-                name: 'التصنيف',
-                options: { all: { name: 'كل التصنيفات', icon: 'fa-grip' }, history: { name: 'التاريخ', icon: 'fa-scroll' }, science: { name: 'العلوم', icon: 'fa-flask-vial' }, technology: { name: 'التقنية', icon: 'fa-satellite-dish' }, geography: { name: 'الجغرافيا', icon: 'fa-earth-africa' } }
-            },
-            lang: {
-                name: 'اللغة',
-                options: { all: { name: 'كل اللغات', icon: 'fa-language' }, ar: { name: 'العربية', icon: flags.ar }, en: { name: 'English', icon: flags.en }, fr: { name: 'Français', icon: flags.fr } }
-            }
+            category: { name: 'التصنيف', options: { all: { name: 'كل التصنيفات', icon: 'fa-grip' }, history: { name: 'التاريخ', icon: 'fa-scroll' }, science: { name: 'العلوم', icon: 'fa-flask-vial' }, technology: { name: 'التقنية', icon: 'fa-satellite-dish' }, geography: { name: 'الجغرافيا', icon: 'fa-earth-africa' } } },
+            lang: { name: 'اللغة', options: { all: { name: 'كل اللغات', icon: 'fa-language' }, ar: { name: 'العربية', icon: flags.ar }, en: { name: 'English', icon: flags.en }, fr: { name: 'Français', icon: flags.fr } } }
         };
-        let state = { category: 'all', lang: 'all' };
-        // --- Render Icon (FontAwesome or Flag) ---
-        const renderIcon = (icon, altText) => {
-            if (typeof icon === 'string' && icon.startsWith('fa-')) {
-                return `<i class="fas ${icon} filter-icon"></i>`;
-            }
-            return `<img src="${icon}" class="filter-icon flag-icon" alt="${altText} flag">`;
-        };
-        // --- Render Filter Options for Modals ---
-        const renderFilterOptions = (group, map) => {
-            let html = `<legend>${map.name}</legend><div class="filter-options">`;
-            for (const [key, value] of Object.entries(map.options)) {
-                html += `
-                    <input type="radio" id="${group}-${key}-modal" name="${group}" value="${key}">
-                    <label for="${group}-${key}-modal">${renderIcon(value.icon, value.name)} ${value.name}</label>
-                `;
-            }
-            html += `</div>`;
-            return html;
-        };
-        // --- Render Filter Options for Sidebar ---
-        const renderSidebarFilterOptions = (group, map) => {
-             let html = `<legend>${map.name}</legend><div class="filter-options">`;
-            for (const [key, value] of Object.entries(map.options)) {
-                html += `
-                    <input type="radio" id="${group}-${key}" name="${group}" value="${key}">
-                    <label for="${group}-${key}">${renderIcon(value.icon, value.name)} ${value.name}</label>
-                `;
-            }
-            html += `</div>`;
-            return html;
-        };
-        // --- Update Floating Button Icon ---
-        const updateFloatingButton = (type) => {
-            let btn = document.getElementById(`floating-${type}-btn`);
-            if (!btn) return;
-            const iconContainer = btn.querySelector('.floating-icon-container');
-            const currentOption = maps[type].options[state[type]];
-            const defaultOption = maps[type].options['all'];
-            btn.classList.toggle('is-active', state[type] !== 'all');
-            const iconToShow = state[type] === 'all' ? defaultOption.icon : currentOption.icon;
-            const altText = state[type] === 'all' ? defaultOption.name : currentOption.name;
-            if (iconContainer) iconContainer.innerHTML = renderIcon(iconToShow, altText);
-        };
-        // --- Show selected filters summary on mobile/tablet ---
-        function updateSelectedFiltersSummary() {
-            if (window.innerWidth > 1024) {
-                elements.selectedFiltersSummary.style.display = 'none';
-                return;
-            }
-            var cat = maps.category.options[state.category] ? maps.category.options[state.category].name : '';
-            var lang = maps.lang.options[state.lang] ? maps.lang.options[state.lang].name : '';
-            var summary = '';
-            if (state.category !== 'all' && state.lang !== 'all') {
-                summary = 'التصنيف: <b>' + cat + '</b> | اللغة: <b>' + lang + '</b>';
-            } else if (state.category !== 'all') {
-                summary = 'التصنيف: <b>' + cat + '</b>';
-            } else if (state.lang !== 'all') {
-                summary = 'اللغة: <b>' + lang + '</b>';
-            } else {
-                summary = 'كل التصنيفات وكل اللغات';
-            }
-            elements.selectedFiltersSummary.innerHTML = summary;
-            elements.selectedFiltersSummary.style.display = 'block';
-        }
-        // --- Other UI/logic functions ---
-        const setupTheme = () => {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            elements.htmlEl.dataset.theme = savedTheme;
-            elements.themeToggle.addEventListener('click', () => {
-                const newTheme = elements.htmlEl.dataset.theme === 'light' ? 'dark' : 'light';
-                elements.htmlEl.dataset.theme = newTheme;
-                localStorage.setItem('theme', newTheme);
-            });
-        };
+
+        let state = { category: 'all', lang: 'all', search: '' };
+        
         const renderVideos = (docs) => {
-            elements.videoGrid.innerHTML = '';
-            if (docs.length === 0) {
-                elements.videoGrid.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-video-slash"></i>
-                        <p>لا توجد نتائج تطابق بحثك.</p>
-                        <button class="no-results-reset-btn" id="no-results-reset-btn">
-                            <i class="fas fa-sync-alt"></i> 
-                            <span>إعادة تعيين الفلاتر</span>
-                        </button>
-                    </div>`;
-                return;
-            }
             docs.forEach((doc, index) => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
@@ -490,6 +451,7 @@
                 card.setAttribute('role', 'button');
                 card.setAttribute('tabindex', '0');
                 card.setAttribute('aria-label', `تشغيل فيديو: ${doc.title}`);
+                // Stagger the animation for newly loaded items
                 card.style.animationDelay = `${index * 50}ms`;
                 card.innerHTML = `
                     <div class="video-thumbnail">
@@ -499,55 +461,103 @@
                     </div>
                     <div class="video-info">
                         <div class="category-icon"><i class="fas ${maps.category.options[doc.category].icon}"></i></div>
-                        <div class="video-details">
-                            <div class="video-title">${doc.title}</div>
-                        </div>
+                        <div class="video-details"><div class="video-title">${doc.title}</div></div>
                     </div>
                 `;
                 elements.videoGrid.appendChild(card);
             });
         };
-        const generateContentTitle = () => {
-            const catName = maps.category.options[state.category].name;
-            const langName = maps.lang.options[state.lang].name;
-            if (state.category === 'all' && state.lang === 'all') return 'كل الوثائقيات';
-            if (state.category !== 'all' && state.lang === 'all') return catName;
-            if (state.category === 'all' && state.lang !== 'all') return `وثائقيات (${langName})`;
-            return `${catName} (${langName})`;
+
+        const loadMoreVideos = () => {
+            if (isLoading) return;
+            isLoading = true;
+            elements.loader.style.display = 'block';
+
+            const start = (currentPage - 1) * videosPerPage;
+            const end = start + videosPerPage;
+            const videosToLoad = currentFilteredVideos.slice(start, end);
+
+            setTimeout(() => { // Simulate network delay for loader visibility
+                renderVideos(videosToLoad);
+                currentPage++;
+                isLoading = false;
+                elements.loader.style.display = 'none';
+                // Hide loader if no more videos to load
+                if (end >= currentFilteredVideos.length) {
+                    elements.loader.style.display = 'none';
+                }
+            }, 300);
         };
+
         const updateUI = () => {
-            const filtered = allDocumentaries.filter(doc =>
+            const searchTerm = state.search.toLowerCase();
+            currentFilteredVideos = allDocumentaries.filter(doc =>
                 (state.category === 'all' || doc.category === state.category) &&
-                (state.lang === 'all' || doc.lang === state.lang)
+                (state.lang === 'all' || doc.lang === state.lang) &&
+                (doc.title.toLowerCase().includes(searchTerm))
             );
-            renderVideos(filtered);
-            elements.videoCountEl.textContent = `${filtered.length} وثائقيات`;
+            
+            elements.videoGrid.innerHTML = ''; // Clear existing grid
+            currentPage = 1; // Reset page count
+            
+            if (currentFilteredVideos.length === 0) {
+                elements.videoGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-video-slash"></i>
+                        <p>لا توجد نتائج تطابق بحثك.</p>
+                        <button class="no-results-reset-btn" id="no-results-reset-btn">
+                            <i class="fas fa-sync-alt"></i><span>إعادة تعيين الفلاتر</span>
+                        </button>
+                    </div>`;
+            } else {
+                loadMoreVideos();
+            }
+
+            elements.videoCountEl.textContent = `${currentFilteredVideos.length} وثائقيات`;
             elements.contentTitle.textContent = generateContentTitle();
-            ['category', 'lang'].forEach(type => {
-                const radio = elements.filterForm.querySelector(`input[name="${type}"][value="${state[type]}"]`);
-                if (radio) radio.checked = true;
-                updateFloatingButton(type);
-            });
             updateSelectedFiltersSummary();
         };
+        
         const resetFilters = () => {
             state.category = 'all';
             state.lang = 'all';
+            state.search = '';
+            elements.searchInput.value = '';
+            // Update radio buttons in form
+            ['category', 'lang'].forEach(type => {
+                const radio = elements.filterForm.querySelector(`input[name="${type}"][value="all"]`);
+                if (radio) radio.checked = true;
+                updateFloatingButton(type);
+            });
             updateUI();
         };
-        const openModal = (modalElement, onOpen) => {
-            modalElement.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            if (onOpen) onOpen();
-        };
-        const closeModal = (modalElement) => {
-            modalElement.classList.remove('active');
-            document.body.style.overflow = '';
-        };
+
+        // --- Intersection Observer for Infinite Scroll ---
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && !isLoading) {
+                const totalLoaded = (currentPage - 1) * videosPerPage;
+                if (totalLoaded < currentFilteredVideos.length) {
+                    loadMoreVideos();
+                }
+            }
+        }, { rootMargin: "0px 0px 200px 0px" });
+
+        observer.observe(elements.scrollTrigger);
+
         const setupEventListeners = () => {
+            elements.searchInput.addEventListener('input', e => {
+                state.search = e.target.value;
+                updateUI();
+            });
+
             elements.desktopResetBtn.addEventListener('click', resetFilters);
+            elements.floatingResetBtn.addEventListener('click', resetFilters);
+            elements.videoGrid.addEventListener('click', e => {
+                if (e.target.closest('#no-results-reset-btn')) resetFilters();
+            });
+
+            // The rest of your event listeners (modals, player, etc.)
             const floatingControls = document.getElementById('floating-controls');
-            
             const openFilterModal = (filterType) => {
                 const map = maps[filterType];
                 elements.filterModalTitle.textContent = map.name;
@@ -556,21 +566,15 @@
                 if (currentInput) currentInput.checked = true;
                 openModal(elements.filterModal, () => elements.closeFilterModalBtn.focus());
             };
-            
             if (floatingControls) {
                 floatingControls.addEventListener('click', function(e) {
                     const btn = e.target.closest('button');
-                    if (!btn) return;
+                    if (!btn || btn.id === 'floating-reset-btn') return;
                     e.preventDefault();
-                    if (btn.id === 'floating-reset-btn') resetFilters();
                     if (btn.id === 'floating-category-btn') openFilterModal('category');
                     if (btn.id === 'floating-lang-btn') openFilterModal('lang');
                 });
             }
-            
-            elements.videoGrid.addEventListener('click', (e) => {
-                if (e.target.closest('#no-results-reset-btn')) resetFilters();
-            });
             elements.filterForm.addEventListener('change', e => {
                 if (state.hasOwnProperty(e.target.name)) {
                     state[e.target.name] = e.target.value;
@@ -579,7 +583,7 @@
             });
             elements.closeFilterModalBtn.addEventListener('click', () => closeModal(elements.filterModal));
             elements.filterModal.addEventListener('click', e => {
-                if (e.target === elements.filterModal) closeModal(elements.filterModal)
+                if (e.target === elements.filterModal) closeModal(elements.filterModal);
             });
             elements.filterModalOptions.addEventListener('change', e => {
                 if (state.hasOwnProperty(e.target.name)) {
@@ -608,18 +612,13 @@
             });
             elements.closePlayerBtn.addEventListener('click', () => closeModal(elements.playerModal));
             elements.playerModal.addEventListener('click', e => {
-                if (e.target === elements.playerModal) closeModal(elements.playerModal)
+                if (e.target === elements.playerModal) closeModal(elements.playerModal);
             });
-
-            // --- NEW: Help Modal Event Listeners ---
-            elements.helpBtn.addEventListener('click', () => {
-                openModal(elements.helpModal, () => elements.closeHelpBtn.focus());
-            });
+            elements.helpBtn.addEventListener('click', () => openModal(elements.helpModal, () => elements.closeHelpBtn.focus()));
             elements.closeHelpBtn.addEventListener('click', () => closeModal(elements.helpModal));
             elements.helpModal.addEventListener('click', e => {
                 if (e.target === elements.helpModal) closeModal(elements.helpModal);
             });
-
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') {
                     if (elements.playerModal.classList.contains('active')) closeModal(elements.playerModal);
@@ -628,14 +627,82 @@
                 }
             });
             window.addEventListener('resize', updateSelectedFiltersSummary);
+            elements.themeToggle.addEventListener('click', () => {
+                const newTheme = elements.htmlEl.dataset.theme === 'light' ? 'dark' : 'light';
+                elements.htmlEl.dataset.theme = newTheme;
+                localStorage.setItem('theme', newTheme);
+            });
         };
+
         const init = () => {
-            setupTheme();
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            elements.htmlEl.dataset.theme = savedTheme;
+
             elements.categoryFilters.innerHTML = renderSidebarFilterOptions('category', maps.category);
             elements.langFilters.innerHTML = renderSidebarFilterOptions('lang', maps.lang);
+            
             setupEventListeners();
             updateUI();
         };
+        
+        // Helper functions that don't depend on state but are used in init flow
+        const renderIcon = (icon, altText) => (typeof icon === 'string' && icon.startsWith('fa-')) ? `<i class="fas ${icon} filter-icon"></i>` : `<img src="${icon}" class="filter-icon flag-icon" alt="${altText} flag">`;
+        const renderSidebarFilterOptions = (group, map) => {
+            let html = `<legend>${map.name}</legend><div class="filter-options">`;
+            for (const [key, value] of Object.entries(map.options)) {
+                html += `<input type="radio" id="${group}-${key}" name="${group}" value="${key}" ${key === 'all' ? 'checked' : ''}><label for="${group}-${key}">${renderIcon(value.icon, value.name)} ${value.name}</label>`;
+            }
+            return html + `</div>`;
+        };
+        const renderFilterOptions = (group, map) => {
+            let html = `<legend>${map.name}</legend><div class="filter-options">`;
+            for (const [key, value] of Object.entries(map.options)) {
+                html += `<input type="radio" id="${group}-${key}-modal" name="${group}" value="${key}"><label for="${group}-${key}-modal">${renderIcon(value.icon, value.name)} ${value.name}</label>`;
+            }
+            return html + `</div>`;
+        };
+        const updateFloatingButton = (type) => {
+            let btn = document.getElementById(`floating-${type}-btn`);
+            if (!btn) return;
+            const iconContainer = btn.querySelector('.floating-icon-container');
+            const currentOption = maps[type].options[state[type]];
+            const defaultOption = maps[type].options['all'];
+            btn.classList.toggle('is-active', state[type] !== 'all');
+            const iconToShow = state[type] === 'all' ? defaultOption.icon : currentOption.icon;
+            const altText = state[type] === 'all' ? defaultOption.name : currentOption.name;
+            if (iconContainer) iconContainer.innerHTML = renderIcon(iconToShow, altText);
+        };
+        const updateSelectedFiltersSummary = () => {
+            if (window.innerWidth > 1024) {
+                elements.selectedFiltersSummary.style.display = 'none'; return;
+            }
+            const cat = maps.category.options[state.category]?.name || '';
+            const lang = maps.lang.options[state.lang]?.name || '';
+            let summaryParts = [];
+            if (state.category !== 'all') summaryParts.push(`التصنيف: <b>${cat}</b>`);
+            if (state.lang !== 'all') summaryParts.push(`اللغة: <b>${lang}</b>`);
+            if (summaryParts.length === 0) {
+                elements.selectedFiltersSummary.innerHTML = 'عرض كل التصنيفات واللغات';
+            } else {
+                elements.selectedFiltersSummary.innerHTML = summaryParts.join(' | ');
+            }
+            elements.selectedFiltersSummary.style.display = 'block';
+        };
+        const generateContentTitle = () => {
+            const catName = maps.category.options[state.category].name;
+            const langName = maps.lang.options[state.lang].name;
+            if (state.category === 'all' && state.lang === 'all') return 'كل الوثائقيات';
+            if (state.category !== 'all' && state.lang === 'all') return catName;
+            if (state.category === 'all' && state.lang !== 'all') return `وثائقيات (${langName})`;
+            return `${catName} (${langName})`;
+        };
+        const openModal = (modalElement, onOpen) => {
+            modalElement.classList.add('active'); document.body.style.overflow = 'hidden'; if (onOpen) onOpen();
+        };
+        const closeModal = (modalElement) => {
+            modalElement.classList.remove('active'); document.body.style.overflow = '';
+        };
+
         init();
     });
     </script>
