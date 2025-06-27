@@ -54,11 +54,11 @@
         .logo-icon i { font-size: 1.5rem; color: #fff; }
         .logo-text { font-size: 1.5rem; font-weight: 800; }
         .header-controls { display: flex; align-items: center; gap: 16px; }
-        .theme-toggle {
+        .header-btn {
             font-size: 1.3rem; color: var(--text-secondary); background: none; border: none;
             cursor: pointer; padding: 8px; transition: color 0.2s, transform 0.2s;
         }
-        .theme-toggle:hover { color: var(--primary); transform: scale(1.1) rotate(-15deg); }
+        .header-btn:hover { color: var(--primary); transform: scale(1.1) rotate(-15deg); }
         .theme-toggle .fa-sun { display: none; }
         html[data-theme="dark"] .theme-toggle .fa-sun { display: inline-block; }
         html[data-theme="dark"] .theme-toggle .fa-moon { display: none; }
@@ -164,6 +164,21 @@
         .player-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 18px 18px 0 0; overflow: hidden; }
         .player-container iframe { width: 100%; height: 100%; border: none; }
         #player-title { padding: 16px 20px; font-size: 1.2rem; font-weight: 600; border-top: 1px solid var(--border-color); }
+        /* ---- NEW CSS FOR HELP MODAL ---- */
+        .help-modal-header { padding: 16px 24px; border-bottom: 1px solid var(--border-color); text-align: center; }
+        .help-modal-header h3 { margin: 0; font-size: 1.3rem; color: var(--primary); }
+        .help-modal-body { padding: 24px; }
+        .help-modal-body p { margin: 0 0 24px 0; text-align: center; color: var(--text-secondary); font-size: 1rem; }
+        .contact-info { display: flex; flex-direction: column; gap: 16px; }
+        .contact-item {
+            display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: var(--surface-secondary);
+            border: 1px solid var(--border-color); border-radius: 12px; text-decoration: none; color: var(--text-primary);
+            font-weight: 500; transition: var(--ease-cubic);
+        }
+        .contact-item:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px var(--glow-color); }
+        .contact-item i { font-size: 1.5rem; width: 28px; text-align: center; color: var(--primary); transition: color 0.3s; }
+        .contact-item:hover i { color: #fff; }
+        /* ---- END NEW CSS ---- */
         .floating-controls, .filter-modal { display: none; }
         @media (max-width: 1024px) {
             .logo-text, .sidebar { display: none; }
@@ -196,59 +211,24 @@
                 display: flex; align-items: center; justify-content: center;
                 opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
             }
-            
-            /* --- FIX STARTS HERE --- */
-            .filter-modal.active {
-                opacity: 1;
-                visibility: visible;
-            }
-            .filter-modal.active .filter-modal-content {
-                transform: scale(1);
-            }
+            .filter-modal.active { opacity: 1; visibility: visible; }
+            .filter-modal.active .filter-modal-content { transform: scale(1); }
             .filter-modal-content {
-                background: var(--surface);
-                border-radius: 18px;
-                box-shadow: 0 10px 30px var(--shadow-color);
-                width: 90vw;
-                max-width: 400px;
-                max-height: 85vh;
-                display: flex;
-                flex-direction: column;
-                transform: scale(0.95);
-                transition: transform 0.3s var(--ease-cubic);
-                overflow: hidden;
+                background: var(--surface); border-radius: 18px; box-shadow: 0 10px 30px var(--shadow-color);
+                width: 90vw; max-width: 400px; max-height: 85vh; display: flex; flex-direction: column;
+                transform: scale(0.95); transition: transform 0.3s var(--ease-cubic); overflow: hidden;
             }
             .filter-modal-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 16px 24px;
-                border-bottom: 1px solid var(--border-color);
-                flex-shrink: 0;
+                display: flex; justify-content: space-between; align-items: center; padding: 16px 24px;
+                border-bottom: 1px solid var(--border-color); flex-shrink: 0;
             }
-            .filter-modal-header h3 {
-                margin: 0;
-                font-size: 1.2rem;
-            }
+            .filter-modal-header h3 { margin: 0; font-size: 1.2rem; }
             .filter-modal .close-btn {
-                background: none;
-                border: none;
-                font-size: 1.5rem;
-                cursor: pointer;
-                color: var(--text-secondary);
-                padding: 0;
-                line-height: 1;
-                transition: all 0.2s;
+                background: none; border: none; font-size: 1.5rem; cursor: pointer;
+                color: var(--text-secondary); padding: 0; line-height: 1; transition: all 0.2s;
             }
-            .filter-modal .close-btn:hover {
-                color: var(--primary);
-                transform: rotate(90deg);
-            }
-            #filter-modal-options {
-                padding: 8px 16px 24px 16px;
-                overflow-y: auto;
-            }
-            /* --- FIX ENDS HERE --- */
+            .filter-modal .close-btn:hover { color: var(--primary); transform: rotate(90deg); }
+            #filter-modal-options { padding: 8px 16px 24px 16px; overflow-y: auto; }
         }
         @media (max-width: 768px) {
             .main-content { padding: 16px; }
@@ -265,17 +245,22 @@
 </head>
 <body>
     <div class="top-bar">
-        <a href="#" class="logo">
+        <a href="index.html" class="logo">
             <span class="logo-icon"><i class="fas fa-book-open"></i></span>
             <span class="logo-text">المكتبة</span>
         </a>
         <div class="header-controls">
-            <button class="theme-toggle" id="theme-toggle" aria-label="تبديل الوضع">
+            <!-- NEW: Help Button -->
+            <button class="header-btn" id="help-btn" aria-label="مساعدة و تواصل">
+                <i class="fas fa-question-circle"></i>
+            </button>
+            <button class="header-btn theme-toggle" id="theme-toggle" aria-label="تبديل الوضع">
                 <i class="fas fa-moon"></i>
                 <i class="fas fa-sun"></i>
             </button>
         </div>
     </div>
+
     <div class="page-container">
         <aside class="sidebar" id="sidebar">
             <form id="filter-form" class="filter-form">
@@ -296,11 +281,13 @@
             <div class="video-grid" id="video-grid"></div>
         </main>
     </div>
+
     <div class="floating-controls" id="floating-controls">
         <button id="floating-reset-btn" class="floating-btn reset-btn" aria-label="إعادة تعيين"><span class="floating-icon-container"><i class="fas fa-sync-alt"></i></span></button>
         <button id="floating-lang-btn" class="floating-btn" aria-label="تصفية حسب اللغة"><span class="floating-icon-container"><i class="fas fa-language"></i></span></button>
         <button id="floating-category-btn" class="floating-btn" aria-label="تصفية حسب التصنيف"><span class="floating-icon-container"><i class="fas fa-grip"></i></span></button>
     </div>
+
     <div class="filter-modal" id="filter-modal">
         <div class="filter-modal-content">
             <div class="filter-modal-header">
@@ -310,6 +297,7 @@
             <div id="filter-modal-options"></div>
         </div>
     </div>
+
     <div class="player-modal" id="player-modal">
         <div class="modal-content">
             <button class="close-btn" id="close-player-modal" aria-label="إغلاق"><i class="fas fa-times"></i></button>
@@ -317,6 +305,30 @@
             <h3 id="player-title"></h3>
         </div>
     </div>
+
+    <!-- NEW: Help Modal -->
+    <div class="player-modal" id="help-modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <button class="close-btn" id="close-help-modal" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            <div class="help-modal-header">
+                <h3>تواصل معنا</h3>
+            </div>
+            <div class="help-modal-body">
+                <p>لأية استفسارات أو اقتراحات، يمكنكم التواصل معنا عبر:</p>
+                <div class="contact-info">
+                    <a href="mailto:smarttools618@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>smarttools618@gmail.com</span>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61576965144664" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <i class="fab fa-facebook"></i>
+                        <span>صفحتنا على فيسبوك</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
     // --- Documentary Data ---
     const allDocumentaries = [
@@ -359,6 +371,10 @@
             playerTitle: document.getElementById('player-title'),
             closePlayerBtn: document.getElementById('close-player-modal'),
             selectedFiltersSummary: document.getElementById('selected-filters-summary'),
+            // NEW: Help Modal Elements
+            helpBtn: document.getElementById('help-btn'),
+            helpModal: document.getElementById('help-modal'),
+            closeHelpBtn: document.getElementById('close-help-modal'),
         };
         // --- Flags for Language Icons ---
         const flags = {
@@ -594,10 +610,21 @@
             elements.playerModal.addEventListener('click', e => {
                 if (e.target === elements.playerModal) closeModal(elements.playerModal)
             });
+
+            // --- NEW: Help Modal Event Listeners ---
+            elements.helpBtn.addEventListener('click', () => {
+                openModal(elements.helpModal, () => elements.closeHelpBtn.focus());
+            });
+            elements.closeHelpBtn.addEventListener('click', () => closeModal(elements.helpModal));
+            elements.helpModal.addEventListener('click', e => {
+                if (e.target === elements.helpModal) closeModal(elements.helpModal);
+            });
+
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') {
                     if (elements.playerModal.classList.contains('active')) closeModal(elements.playerModal);
                     if (elements.filterModal.classList.contains('active')) closeModal(elements.filterModal);
+                    if (elements.helpModal.classList.contains('active')) closeModal(elements.helpModal);
                 }
             });
             window.addEventListener('resize', updateSelectedFiltersSummary);
