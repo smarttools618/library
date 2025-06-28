@@ -5,7 +5,7 @@
         "id": "huyXH0lxpVM",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/huyXH0lxpVM",
-        "duration": "45:12"
+        "duration": "44:10"
     },
     {
         "title": "المعركة النهائية لهتلر: الكتيبة المفقودة",
@@ -13,7 +13,7 @@
         "id": "lE2B6DdFZBI",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/lE2B6DdFZBI",
-        "duration": "48:30"
+        "duration": "42:24"
     },
     {
         "title": "مصر القديمة: توت عنخ آمون الجبار",
@@ -21,15 +21,7 @@
         "id": "udE4ehMwChc",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/udE4ehMwChc",
-        "duration": "52:05"
-    },
-    {
-        "title": "Le Monde perdu des Mayas",
-        "category": "history",
-        "id": "7MFKy7DJsCY",
-        "lang": "fr",
-        "embed": "https://www.youtube-nocookie.com/embed/7MFKy7DJsCY",
-        "duration": "52:00"
+        "duration": "44:10"
     },
     {
         "title": "The Rise of the Roman Empire",
@@ -37,7 +29,7 @@
         "id": "zxKPjD8urG4",
         "lang": "en",
         "embed": "https://www.youtube-nocookie.com/embed/zxKPjD8urG4",
-        "duration": "50:00"
+        "duration": "47:22"
     },
     {
         "title": "وثائقي | قوة الأفكار - لغز كبير يواجه العلم",
@@ -45,15 +37,7 @@
         "id": "ON7V2XiQFrM",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/ON7V2XiQFrM",
-        "duration": "42:19"
-    },
-    {
-        "title": "Discover The Mysteries of the Human Brain",
-        "category": "science",
-        "id": "GsWfGTTgntA",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/GsWfGTTgntA",
-        "duration": "59:01"
+        "duration": "25:56"
     },
     {
         "title": "How our brain judges people in a split second",
@@ -61,7 +45,7 @@
         "id": "XOfeqRgaF1A",
         "lang": "en",
         "embed": "https://www.youtube-nocookie.com/embed/XOfeqRgaF1A",
-        "duration": "28:44"
+        "duration": "42:26"
     },
     {
         "title": "Uncovering the Secrets of the Sun",
@@ -69,31 +53,15 @@
         "id": "SLmWY_ycFUA",
         "lang": "en",
         "embed": "https://www.youtube-nocookie.com/embed/SLmWY_ycFUA",
-        "duration": "54:00"
-    },
-    {
-        "title": "ذكاء الحشرات - كيف يطور النحل مهارات معقدة؟",
-        "category": "science",
-        "id": "46mIoIdGCDw",
-        "lang": "ar",
-        "embed": "https://www.youtube-nocookie.com/embed/46mIoIdGCDw",
-        "duration": "42:31"
-    },
-    {
-        "title": "هل يتحدث البشر والحيتان نفس اللغة ؟",
-        "category": "science",
-        "id": "cTNguGH4XdY",
-        "lang": "ar",
-        "embed": "https://www.youtube-nocookie.com/embed/cTNguGH4XdY",
-        "duration": "15:23"
+        "duration": "44:25"
     },
     {
         "title": "اكتشاف عالم المحيطات: المدن الغارقة",
-        "category": "geography",
+        "category": "history",
         "id": "8zdcwa28KSc",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/8zdcwa28KSc",
-        "duration": "44:00"
+        "duration": "43:18"
     },
     {
         "title": "السباق نحو الذكاء الاصطناعيّ",
@@ -101,7 +69,7 @@
         "id": "EpW4j-3sPP4",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/EpW4j-3sPP4",
-        "duration": "1:03:55"
+        "duration": "51:42"
     },
     {
         "title": "عصر البيانات.. الاستخدامات الملموسة للذكاء الصناعي في حياة البشر",
@@ -109,6 +77,152 @@
         "id": "5bEBTUTX20M",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/5bEBTUTX20M",
-        "duration": "47:44"
+        "duration": "24:02"
+
+    },
+    {
+        "title": "المريخ - العيش على الكوكب الأحمر؟",
+        "category": "science",
+        "id": "rtteGD7vQ2o",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/rtteGD7vQ2o",
+        "duration": "42:26"
+    },
+    {
+        "title": "هل سينقذنا الذكاء الاصطناعي أم سيهلكنا؟",
+        "category": "technology",
+        "id": "zLABTOk7Pb8",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/zLABTOk7Pb8",
+        "duration": "28:26"
+    },
+    {
+        "title": " الذكاء الاصطناعي: سباق بين الصين والولايات المتحدة الأمريكية وأوروبا",
+        "category": "technology",
+        "id": "EUl-3wgfUuo",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/EUl-3wgfUuo",
+        "duration": "1:28:30"
+    },
+    {
+        "title": "بين الإنسان والذكاء الاصطناعي: كيف تكتسب الروبوتات الوعي والسلوك البشري؟",
+        "category": "technology",
+        "id": "-5NTXo8fWfQ",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/-5NTXo8fWfQ",
+        "duration": "42:26"
+    },
+    {
+        "title": "ذكاء الحشرات - كيف يطور النحل مهارات معقدة؟",
+        "category": "الطبيعة والحياة البرية",
+        "id": "46mIoIdGCDw",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/46mIoIdGCDw",
+        "duration": "42:25"
+    },
+    {
+        "title": "هل يتحدث البشر والحيتان نفس اللغة ؟",
+        "category": "الطبيعة والحياة البرية",
+        "id": "cTNguGH4XdY",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/cTNguGH4XdY",
+        "duration": "42:26"
+    },
+
+    {
+        "title": "Our Planet | From Deserts to Grasslands",
+        "category": "الطبيعة والحياة البرية",
+        "id": "XmtXC_n6X6Q",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/XmtXC_n6X6Q",
+        "duration": "50:55",
+        "type": "playlists",
+        "playlist": "our planet"
+    },
+    {
+        "title": "Our Planet | Coastal Seas",
+        "category": "الطبيعة والحياة البرية",
+        "id": "r9PeYPHdpNo",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/r9PeYPHdpNo",
+        "duration": "49:48",
+        "type": "playlists",
+        "playlist": "our planet"
+    },
+    {
+        "title": "Our Planet | One Planet",
+        "category": "الطبيعة والحياة البرية",
+        "id": "GfO-3Oir-qM",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/GfO-3Oir-qM",
+        "duration": "49:28",
+        "type": "playlists",
+        "playlist": "our planet"
+    },
+    {
+        "title": "Our Planet | Forests",
+        "category": "الطبيعة والحياة البرية",
+        "id": "JkaxUblCGz0",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/JkaxUblCGz0",
+        "duration": "48:18",
+        "type": "playlists",
+        "playlist": "our planet"
+    },
+    {
+        "title": "قتلة البريّة | أشرس كائنات أفريقيا",
+        "category": "الطبيعة والحياة البرية",
+        "id": "aKbEjRP1rCs",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/aKbEjRP1rCs",
+        "duration": "44:00"
+    },
+    {
+        "title": "Le Monde perdu des Mayas",
+        "category": "مجتمعات وثقافات",
+        "id": "7MFKy7DJsCY",
+        "lang": "fr",
+        "embed": "https://www.youtube-nocookie.com/embed/7MFKy7DJsCY",
+        "duration": "44:25"
+    },
+    {
+        "title": "كيف ستبدو مدن المستقبل؟ - آفاق جديدة للتخطيط الحضري وحماية مستدامة للمناخ",
+        "category": "technology",
+        "id": "FuQbR5WcU4Q",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/FuQbR5WcU4Q",
+        "duration": "25:55"
+    },
+    {
+        "title": "Le sucre nous rend-il bêtes ? ",
+        "category": "science",
+        "id": "XcZ7CnAEgB0",
+        "lang": "fr",
+        "embed": "https://www.youtube-nocookie.com/embed/XcZ7CnAEgB0",
+        "duration": "27:14"
+    },
+    {
+        "title": "Inca Island in the Sky",
+        "category": "مجتمعات وثقافات",
+        "id": "VB_WUMtdjpU",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/VB_WUMtdjpU?si=MQOailgdIeSDCaKB",
+        "duration": "44:24"
+    },
+    {
+        "title": "Ancient Islands: Ghost City of the Pacific",
+        "category": "مجتمعات وثقافات",
+        "id": "tzBmrpFNcH4",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/tzBmrpFNcH4?si=7MnF-NUF3mhHEmiQ",
+        "duration": "44:24"
+    },
+    {
+        "title": "معبد الإنكا المفقود",
+        "category": "مجتمعات وثقافات",
+        "id": "MdmD9X8FkUs",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/MdmD9X8FkUs?si=lqQ7keunO3MyC17b",
+        "duration": "42:07"
     }
 ]

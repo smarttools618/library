@@ -65,11 +65,40 @@
         .sidebar {
             width: 250px; background: var(--surface); padding: 24px 0;
             height: calc(100vh - 70px); position: fixed; top: 70px; right: 0;
-            overflow-y: auto; border-left: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
             transition: var(--ease-cubic); z-index: 1000;
+            display: flex; flex-direction: column;
         }
-        .filter-form { padding: 0 16px; }
+        .filter-form {
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
         .filter-group { border: none; padding: 0; margin: 0 0 24px 0; }
+
+        /* Custom scrollable section for category filters on desktop */
+        @media (min-width: 1025px) {
+            #category-filters {
+                flex: 1 1 auto;
+                min-height: 0;
+                max-height: 320px;
+                overflow-y: auto;
+                margin-bottom: 16px;
+            }
+            #lang-filters {
+                flex-shrink: 0;
+                position: sticky;
+                bottom: 0;
+                background: var(--surface);
+                z-index: 2;
+                margin-bottom: 0;
+                box-shadow: 0 -2px 8px 0 var(--shadow-color);
+            }
+            .filter-form {
+                height: 100%;
+            }
+        }
         .filter-group legend {
             font-size: 0.9rem; text-transform: uppercase; color: var(--text-secondary);
             padding: 0 8px; margin-bottom: 12px; font-weight: 600;
@@ -437,8 +466,26 @@
         };
 
         const maps = {
-            category: { name: 'التصنيف', options: { all: { name: 'كل التصنيفات', icon: 'fa-grip' }, history: { name: 'التاريخ', icon: 'fa-scroll' }, science: { name: 'العلوم', icon: 'fa-flask-vial' }, technology: { name: 'التقنية', icon: 'fa-satellite-dish' }, geography: { name: 'الجغرافيا', icon: 'fa-earth-africa' } } },
-            lang: { name: 'اللغة', options: { all: { name: 'كل اللغات', icon: 'fa-language' }, ar: { name: 'العربية', icon: flags.ar }, en: { name: 'English', icon: flags.en }, fr: { name: 'Français', icon: flags.fr } } }
+            category: {
+                name: 'التصنيف',
+                options: {
+                    all: { name: 'كل التصنيفات', icon: 'fa-grip' },
+                    history: { name: 'التاريخ', icon: 'fa-scroll' },
+                    science: { name: 'العلوم', icon: 'fa-flask-vial' },
+                    technology: { name: 'التقنية', icon: 'fa-satellite-dish' },
+                    "الطبيعة والحياة البرية": { name: 'الطبيعة والحياة البرية', icon: 'fa-leaf' },
+                    "مجتمعات وثقافات": { name: 'مجتمعات وثقافات', icon: 'fa-people-group' }
+                }
+            },
+            lang: {
+                name: 'اللغة',
+                options: {
+                    all: { name: 'كل اللغات', icon: 'fa-language' },
+                    ar: { name: 'العربية', icon: flags.ar },
+                    en: { name: 'English', icon: flags.en },
+                    fr: { name: 'Français', icon: flags.fr }
+                }
+            }
         };
 
         let state = { category: 'all', lang: 'all', search: '' };
@@ -595,6 +642,8 @@
             const openPlayer = (card) => {
                 const doc = allDocumentaries.find(d => d.id === card.dataset.videoId);
                 if (doc) {
+                    // Always clear any previous iframe before creating a new one
+                    elements.playerContainer.innerHTML = '';
                     elements.playerContainer.innerHTML = `<iframe src="${doc.embed}?autoplay=1&rel=0" title="${doc.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                     elements.playerTitle.textContent = doc.title;
                     openModal(elements.playerModal, () => elements.closePlayerBtn.focus());
@@ -614,6 +663,14 @@
             elements.playerModal.addEventListener('click', e => {
                 if (e.target === elements.playerModal) closeModal(elements.playerModal);
             });
+            // Stop video playback when closing the player modal
+            const stopPlayer = () => {
+                elements.playerContainer.innerHTML = '';
+            };
+            elements.closePlayerBtn.addEventListener('click', stopPlayer);
+            elements.playerModal.addEventListener('click', e => {
+                if (e.target === elements.playerModal) stopPlayer();
+            });
             elements.helpBtn.addEventListener('click', () => openModal(elements.helpModal, () => elements.closeHelpBtn.focus()));
             elements.closeHelpBtn.addEventListener('click', () => closeModal(elements.helpModal));
             elements.helpModal.addEventListener('click', e => {
@@ -621,7 +678,10 @@
             });
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') {
-                    if (elements.playerModal.classList.contains('active')) closeModal(elements.playerModal);
+                    if (elements.playerModal.classList.contains('active')) {
+                        closeModal(elements.playerModal);
+                        elements.playerContainer.innerHTML = '';
+                    }
                     if (elements.filterModal.classList.contains('active')) closeModal(elements.filterModal);
                     if (elements.helpModal.classList.contains('active')) closeModal(elements.helpModal);
                 }
