@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكتبة | الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: var(--background);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding-top: 70px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--surface-transparent, rgba(255, 255, 255, 0.8));
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 24px;
+            z-index: 1100;
+            transition: var(--ease-cubic);
+        }
+        html[data-theme="dark"] .top-bar {
+            --surface-transparent: rgba(36, 37, 38, 0.8);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        .logo-icon {
+            background: var(--primary-glow);
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px var(--glow-color);
+            transition: var(--ease-cubic);
+        }
+        .logo-icon i {
+            font-size: 2rem;
+            color: #fff;
+        }
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        .under-construction {
+            background: var(--surface);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            padding: 48px 32px 40px 32px;
+            max-width: 420px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .under-construction h1 {
+            font-size: 2.3rem;
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        .under-construction p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+        .under-construction .fa-tools {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 18px;
+            filter: drop-shadow(0 2px 8px var(--glow-color));
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-book-open"></i></span>
+            <span class="logo-text">المكتبة</span>
+        </a>
+    </div>
+    <main>
+        <div class="under-construction">
+            <i class="fas fa-tools"></i>
+            <h1>الموقع قيد الإنشاء</h1>
+            <p>نحن نعمل على تطوير الموقع حالياً.<br>يرجى العودة لاحقاً لمشاهدة المزيد من الوثائقيات والمحتوى المميز.</p>
+        </div>
+    </main>
+</body>
+</html>
