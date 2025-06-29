@@ -23,14 +23,7 @@
         "embed": "https://www.youtube-nocookie.com/embed/udE4ehMwChc?autoplay=1&mute=1",
         "duration": "44:10"
     },
-    {
-        "title": "The Rise of the Roman Empire",
-        "category": "history",
-        "id": "zxKPjD8urG4",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/zxKPjD8urG4?autoplay=1&mute=1",
-        "duration": "47:22"
-    },
+    
     {
         "title": "وثائقي | قوة الأفكار - لغز كبير يواجه العلم",
         "category": "science",
@@ -39,30 +32,9 @@
         "embed": "https://www.youtube-nocookie.com/embed/ON7V2XiQFrM?autoplay=1&mute=1",
         "duration": "25:56"
     },
-    {
-        "title": "How our brain judges people in a split second",
-        "category": "science",
-        "id": "XOfeqRgaF1A",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/XOfeqRgaF1A?autoplay=1&mute=1",
-        "duration": "42:26"
-    },
-    {
-        "title": "Uncovering the Secrets of the Sun",
-        "category": "science",
-        "id": "SLmWY_ycFUA",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/SLmWY_ycFUA?autoplay=1&mute=1",
-        "duration": "44:25"
-    },
-    {
-        "title": "Toxic and tenacious - How \"forever chemicals” are damaging our health",
-        "category": "science",
-        "id": "HfVW65gRPgQ",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/HfVW65gRPgQ?si=GnSxFrJkL7ZTaojx&autoplay=1&mute=1",
-        "duration": "42:26"
-    },
+    
+    
+    
     {
         "title": "أرض الناجون | الأرجنتين البرية ",
         "category": "الطبيعة والحياة البرية",
@@ -145,46 +117,10 @@
         "duration": "42:26"
     },
 
-    {
-        "title": "Our Planet | From Deserts to Grasslands",
-        "category": "الطبيعة والحياة البرية",
-        "id": "XmtXC_n6X6Q",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/XmtXC_n6X6Q?autoplay=1&mute=1",
-        "duration": "50:55",
-        "type": "playlists",
-        "playlist": "our planet"
-    },
-    {
-        "title": "Our Planet | Coastal Seas",
-        "category": "الطبيعة والحياة البرية",
-        "id": "r9PeYPHdpNo",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/r9PeYPHdpNo?autoplay=1&mute=1",
-        "duration": "49:48",
-        "type": "playlists",
-        "playlist": "our planet"
-    },
-    {
-        "title": "Our Planet | One Planet",
-        "category": "الطبيعة والحياة البرية",
-        "id": "GfO-3Oir-qM",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/GfO-3Oir-qM?autoplay=1&mute=1",
-        "duration": "49:28",
-        "type": "playlists",
-        "playlist": "our planet"
-    },
-    {
-        "title": "Our Planet | Forests",
-        "category": "الطبيعة والحياة البرية",
-        "id": "JkaxUblCGz0",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/JkaxUblCGz0?autoplay=1&mute=1",
-        "duration": "48:18",
-        "type": "playlists",
-        "playlist": "our planet"
-    },
+    
+    
+    
+    
     {
         "title": "قتلة البريّة | أشرس كائنات أفريقيا",
         "category": "الطبيعة والحياة البرية",
@@ -193,14 +129,7 @@
         "embed": "https://www.youtube-nocookie.com/embed/aKbEjRP1rCs?autoplay=1&mute=1",
         "duration": "44:00"
     },
-    {
-        "title": "Le Monde perdu des Mayas",
-        "category": "مجتمعات وثقافات",
-        "id": "7MFKy7DJsCY",
-        "lang": "fr",
-        "embed": "https://www.youtube-nocookie.com/embed/7MFKy7DJsCY?autoplay=1&mute=1",
-        "duration": "44:25"
-    },
+    
     {
         "title": "كيف ستبدو مدن المستقبل؟ - آفاق جديدة للتخطيط الحضري وحماية مستدامة للمناخ",
         "category": "technology",
@@ -209,30 +138,9 @@
         "embed": "https://www.youtube-nocookie.com/embed/FuQbR5WcU4Q?autoplay=1&mute=1",
         "duration": "25:55"
     },
-    {
-        "title": "Le sucre nous rend-il bêtes ? ",
-        "category": "science",
-        "id": "XcZ7CnAEgB0",
-        "lang": "fr",
-        "embed": "https://www.youtube-nocookie.com/embed/XcZ7CnAEgB0?autoplay=1&mute=1",
-        "duration": "27:14"
-    },
-    {
-        "title": "Inca Island in the Sky",
-        "category": "مجتمعات وثقافات",
-        "id": "VB_WUMtdjpU",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/VB_WUMtdjpU?si=MQOailgdIeSDCaKB&autoplay=1&mute=1",
-        "duration": "44:24"
-    },
-    {
-        "title": "Ancient Islands: Ghost City of the Pacific",
-        "category": "مجتمعات وثقافات",
-        "id": "tzBmrpFNcH4",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/tzBmrpFNcH4?si=7MnF-NUF3mhHEmiQ&autoplay=1&mute=1",
-        "duration": "44:25"
-    },
+    
+    
+    
     {
         "title": "معبد الإنكا المفقود",
         "category": "مجتمعات وثقافات",
@@ -241,14 +149,7 @@
         "embed": "https://www.youtube-nocookie.com/embed/MdmD9X8FkUs?si=lqQ7keunO3MyC17b&autoplay=1&mute=1",
         "duration": "42:08"
     },
-    {
-        "title": "AlphaGo - The Movie | Full award-winning documentary",
-        "category": "technology",
-        "id": "WXuK6gekU1Y",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/WXuK6gekU1Y?si=7bCbc9zVLW7gdHkw&autoplay=1&mute=1",
-        "duration": "1:30:27"
-    },
+    
     {
         "title": "اكتشافات مذهلة في عالم الفُطر: من تحليل البلاستيك إلى الطب",
         "category": "science",
@@ -265,12 +166,30 @@
         "embed": "https://www.youtube-nocookie.com/embed/cfirzn4il5A?si=chOcQxmQmpKzSRW8&autoplay=1&mute=1",
         "duration": "42:27"
     },
+    
+    
     {
-        "title": "Our Planet | High Seas",
-        "category": "الطبيعة والحياة البرية",
-        "id": "9FqwhW0B3tY",
-        "lang": "en",
-        "embed": "https://www.youtube-nocookie.com/embed/9FqwhW0B3tY?si=sxyfxVAnCwduEbP7&autoplay=1&mute=1",
-        "duration": "48:31"
+        "title": "الوجود الرقمي بعد الموت - \"خلود\" بفضل الذكاء الاصطناعي",
+        "category": "technology",
+        "id": "FMnm2cKfxb0",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/FMnm2cKfxb0?autoplay=1&mute=1",
+        "duration": "28:25"
+    },
+    {
+        "title": "ما هو دور الأمعاء في جسد الإنسان؟ - تغذية ومناعة وصحة نفسية ",
+        "category": "science",
+        "id": "_98ItKGmIW8",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/_98ItKGmIW8?autoplay=1&mute=1",
+        "duration": "42:25"
+    },
+    {
+        "title": "عودة بقّ الفراش إلى أوروبا: حرب الفنادق والمختصين ضد الحشرات الطفيلية",
+        "category": "science",
+        "id": "KfOSDkcM9zo",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/KfOSDkcM9zo?autoplay=1&mute=1",
+        "duration": "28:25"
     }
 ]

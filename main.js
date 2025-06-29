@@ -34,10 +34,10 @@ document.addEventListener('videosLoaded', function () {
         contentTitle: document.getElementById('content-title'),
         filterForm: document.getElementById('filter-form'),
         categoryFilters: document.getElementById('category-filters'),
-        langFilters: document.getElementById('lang-filters'),
+        // langFilters removed from sidebar, so skip it
         desktopResetBtn: document.getElementById('desktop-reset-btn'),
         floatingCategoryBtn: document.getElementById('floating-category-btn'),
-        floatingLangBtn: document.getElementById('floating-lang-btn'),
+        // floatingLangBtn may not exist
         floatingResetBtn: document.getElementById('floating-reset-btn'),
         filterModal: document.getElementById('filter-modal'),
         filterModalTitle: document.getElementById('filter-modal-title'),
@@ -158,7 +158,7 @@ document.addEventListener('videosLoaded', function () {
             loadMoreVideos();
         }
 
-        elements.videoCountEl.textContent = `${currentFilteredVideos.length} وثائقيات`;
+        elements.videoCountEl.textContent = `${currentFilteredVideos.length}`;
         elements.contentTitle.textContent = generateContentTitle();
         updateSelectedFiltersSummary();
     };
@@ -190,6 +190,18 @@ document.addEventListener('videosLoaded', function () {
     observer.observe(elements.scrollTrigger);
 
     const setupEventListeners = () => {
+        // Remove floating language button on small screens
+        function handleFloatingLangBtn() {
+            if (window.innerWidth <= 1024) {
+                const btn = document.getElementById('floating-lang-btn');
+                if (btn) btn.style.display = 'none';
+            } else {
+                const btn = document.getElementById('floating-lang-btn');
+                if (btn) btn.style.display = '';
+            }
+        }
+        handleFloatingLangBtn();
+        window.addEventListener('resize', handleFloatingLangBtn);
         elements.searchInput.addEventListener('input', e => {
             state.search = e.target.value;
             updateUI();
@@ -224,7 +236,44 @@ document.addEventListener('videosLoaded', function () {
             if (state.hasOwnProperty(e.target.name)) {
                 state[e.target.name] = e.target.value;
                 updateUI();
+                // Hide sidebar on mobile/tablet after selecting a category (permanently until user reopens)
+                if (window.innerWidth <= 1024 && e.target.name === 'category') {
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar) sidebar.style.display = 'none';
+                }
             }
+    // Optionally, add a way to reopen the sidebar on mobile (e.g., a floating button)
+        // Advanced search: search by title, category, and duration
+        elements.searchInput.addEventListener('input', e => {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            currentFilteredVideos = allDocumentaries.filter(doc => {
+                return (
+                    (state.category === 'all' || doc.category === state.category) &&
+                    (
+                        doc.title.toLowerCase().includes(searchTerm) ||
+                        (doc.category && doc.category.toLowerCase().includes(searchTerm)) ||
+                        (doc.duration && doc.duration.includes(searchTerm))
+                    )
+                );
+            });
+            elements.videoGrid.innerHTML = '';
+            currentPage = 1;
+            if (currentFilteredVideos.length === 0) {
+                elements.videoGrid.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-video-slash"></i>
+                    <p>لا توجد نتائج تطابق بحثك.</p>
+                    <button class="no-results-reset-btn" id="no-results-reset-btn">
+                        <i class="fas fa-sync-alt"></i><span>إعادة تعيين الفلاتر</span>
+                    </button>
+                </div>`;
+            } else {
+                loadMoreVideos();
+            }
+            elements.videoCountEl.textContent = `${currentFilteredVideos.length} وثائقيات`;
+            elements.contentTitle.textContent = generateContentTitle();
+            updateSelectedFiltersSummary();
+        });
         });
         elements.closeFilterModalBtn.addEventListener('click', () => closeModal(elements.filterModal));
         elements.filterModal.addEventListener('click', e => {
@@ -297,7 +346,7 @@ document.addEventListener('videosLoaded', function () {
         elements.htmlEl.dataset.theme = savedTheme;
 
         elements.categoryFilters.innerHTML = renderSidebarFilterOptions('category', maps.category);
-        elements.langFilters.innerHTML = renderSidebarFilterOptions('lang', maps.lang);
+        // Don't render lang filters in sidebar if not present
 
         setupEventListeners();
         updateUI();
