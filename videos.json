@@ -5,7 +5,9 @@
         "id": "huyXH0lxpVM",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/huyXH0lxpVM?autoplay=1&mute=1",
-        "duration": "44:10"
+        "duration": "44:10",
+        "date": "2025-02-21",
+        "channel": "natgeo"
     },
     {
         "title": "المعركة النهائية لهتلر: الكتيبة المفقودة",
@@ -13,7 +15,9 @@
         "id": "lE2B6DdFZBI",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/lE2B6DdFZBI?autoplay=1&mute=1",
-        "duration": "42:24"
+        "duration": "42:24",
+        "date": "2019-09-04",
+        "channel": "natgeo"
     },
     {
         "title": "مصر القديمة: توت عنخ آمون الجبار",
@@ -21,27 +25,29 @@
         "id": "udE4ehMwChc",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/udE4ehMwChc?autoplay=1&mute=1",
-        "duration": "44:10"
+        "duration": "44:10",
+        "date": "2019-09-14",
+        "channel": "natgeo"
     },
-    
     {
         "title": "وثائقي | قوة الأفكار - لغز كبير يواجه العلم",
         "category": "science",
         "id": "ON7V2XiQFrM",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/ON7V2XiQFrM?autoplay=1&mute=1",
-        "duration": "25:56"
+        "duration": "25:56",
+        "date": "2023-04-09",
+        "channel": "dw"
     },
-    
-    
-    
     {
         "title": "أرض الناجون | الأرجنتين البرية ",
-        "category": "الطبيعة والحياة البرية",
+        "category": "nature",
         "id": "Ioe_dnns6r0",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/Ioe_dnns6r0?si=dfwG6YpX5FIt4iSu&autoplay=1&mute=1",
-        "duration": "41:54"
+        "duration": "41:54",
+        "date": "2025-04-06",
+        "channel": "natgeo"
     },
     {
         "title": "اكتشاف عالم المحيطات: المدن الغارقة",
@@ -49,24 +55,9 @@
         "id": "8zdcwa28KSc",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/8zdcwa28KSc?autoplay=1&mute=1",
-        "duration": "43:18"
-    },
-    {
-        "title": "السباق نحو الذكاء الاصطناعيّ",
-        "category": "technology",
-        "id": "EpW4j-3sPP4",
-        "lang": "ar",
-        "embed": "https://www.youtube-nocookie.com/embed/EpW4j-3sPP4?autoplay=1&mute=1",
-        "duration": "51:42"
-    },
-    {
-        "title": "عصر البيانات.. الاستخدامات الملموسة للذكاء الصناعي في حياة البشر",
-        "category": "technology",
-        "id": "5bEBTUTX20M",
-        "lang": "ar",
-        "embed": "https://www.youtube-nocookie.com/embed/5bEBTUTX20M?autoplay=1&mute=1",
-        "duration": "24:02"
-
+        "duration": "43:18",
+        "date": "2019-08-09",
+        "channel": "natgeo"
     },
     {
         "title": "المريخ - العيش على الكوكب الأحمر؟",
@@ -74,7 +65,9 @@
         "id": "rtteGD7vQ2o",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/rtteGD7vQ2o?autoplay=1&mute=1",
-        "duration": "42:26"
+        "duration": "42:26",
+        "date": "2024-04-14",
+        "channel": "dw"
     },
     {
         "title": "هل سينقذنا الذكاء الاصطناعي أم سيهلكنا؟",
@@ -82,15 +75,59 @@
         "id": "zLABTOk7Pb8",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/zLABTOk7Pb8?autoplay=1&mute=1",
-        "duration": "28:26"
+        "duration": "28:26",
+        "date": "2024-09-04",
+        "channel": "dw"
     },
     {
-        "title": " الذكاء الاصطناعي: سباق بين الصين والولايات المتحدة الأمريكية وأوروبا",
+        "title": "الذكاء الاصطناعي: سباق بين الصين والولايات المتحدة الأمريكية وأوروبا",
         "category": "technology",
         "id": "EUl-3wgfUuo",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/EUl-3wgfUuo?autoplay=1&mute=1",
-        "duration": "1:28:30"
+        "duration": "1:28:30",
+        "date": "2024-03-16",
+        "channel": "dw"
+    },
+    {
+        "title": "ما مدى أهمية بطارية أيونات الليثيوم في عالم التكنولوجيا؟",
+        "category": "technology",
+        "id": "gmRoGq7zTaQ",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/gmRoGq7zTaQ?autoplay=1&mute=1",
+        "duration": "42:26",
+        "date": "2023-02-14",
+        "channel": "dw"
+    },
+    {
+        "title": "كمبيوتر عملاق جديد - هل ينجح في علاج أمراض السرطان؟",
+        "category": "technology",
+        "id": "74gYPhpbQoQ",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/74gYPhpbQoQ?autoplay=1&mute=1",
+        "duration": "28:26",
+        "date": "2024-03-14",
+        "channel": "dw"
+    },
+    {
+        "title": "الصين - دولة رقابة أم مختبر مستقبلي؟",
+        "category": "technology",
+        "id": "yD-MsLEL6og",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/yD-MsLEL6og?autoplay=1&mute=1",
+        "duration": "42:26",
+        "date": "2021-10-17",
+        "channel": "dw"
+    },
+    {
+        "title": "مستقبل الصين 2049: سيطرة التكنولوجيا",
+        "category": "technology",
+        "id": "coqgAMZfJik",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/coqgAMZfJik?autoplay=1&mute=1",
+        "duration": "44:10",
+        "date": "2019-10-18",
+        "channel": "natgeo"
     },
     {
         "title": "بين الإنسان والذكاء الاصطناعي: كيف تكتسب الروبوتات الوعي والسلوك البشري؟",
@@ -98,83 +135,89 @@
         "id": "-5NTXo8fWfQ",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/-5NTXo8fWfQ?autoplay=1&mute=1",
-        "duration": "42:26"
+        "duration": "42:25",
+        "date": "2023-08-11",
+        "channel": "dw"
     },
     {
         "title": "ذكاء الحشرات - كيف يطور النحل مهارات معقدة؟",
-        "category": "الطبيعة والحياة البرية",
+        "category": "nature",
         "id": "46mIoIdGCDw",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/46mIoIdGCDw?autoplay=1&mute=1",
-        "duration": "42:25"
+        "duration": "42:25",
+        "date": "2024-09-18",
+        "channel": "dw"
     },
     {
         "title": "هل يتحدث البشر والحيتان نفس اللغة ؟",
-        "category": "الطبيعة والحياة البرية",
+        "category": "nature",
         "id": "cTNguGH4XdY",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/cTNguGH4XdY?autoplay=1&mute=1",
-        "duration": "42:26"
+        "duration": "42:26",
+        "date": "2021-06-05",
+        "channel": "dw"
     },
-
-    
-    
-    
-    
     {
         "title": "قتلة البريّة | أشرس كائنات أفريقيا",
-        "category": "الطبيعة والحياة البرية",
+        "category": "nature",
         "id": "aKbEjRP1rCs",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/aKbEjRP1rCs?autoplay=1&mute=1",
-        "duration": "44:00"
+        "duration": "43:59",
+        "date": "2025-01-18",
+        "channel": "natgeo"
     },
-    
     {
         "title": "كيف ستبدو مدن المستقبل؟ - آفاق جديدة للتخطيط الحضري وحماية مستدامة للمناخ",
         "category": "technology",
         "id": "FuQbR5WcU4Q",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/FuQbR5WcU4Q?autoplay=1&mute=1",
-        "duration": "25:55"
+        "duration": "25:55",
+        "date": "2022-11-13",
+        "channel": "dw"
     },
-    
-    
-    
     {
         "title": "معبد الإنكا المفقود",
-        "category": "مجتمعات وثقافات",
+        "category": "history",
         "id": "MdmD9X8FkUs",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/MdmD9X8FkUs?si=lqQ7keunO3MyC17b&autoplay=1&mute=1",
-        "duration": "42:08"
+        "duration": "42:07",
+        "date": "2020-03-29",
+        "channel": "natgeo"
     },
-    
     {
         "title": "اكتشافات مذهلة في عالم الفُطر: من تحليل البلاستيك إلى الطب",
         "category": "science",
         "id": "KoQNJNE8pAc",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/KoQNJNE8pAc?si=FJWXZJBcLsi2ag0c&autoplay=1&mute=1",
-        "duration": "40:35"
+        "duration": "40:35",
+        "date": "2025-06-08",
+        "channel": "dw"
     },
     {
         "title": "| الصين ومدنها الكبرى العملاقة - صراع على السكن في الصين",
-        "category": "مجتمعات وثقافات",
+        "category": "society",
         "id": "cfirzn4il5A",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/cfirzn4il5A?si=chOcQxmQmpKzSRW8&autoplay=1&mute=1",
-        "duration": "42:27"
+        "duration": "42:26",
+        "date": "2021-05-30",
+        "channel": "dw"
     },
-    
-    
     {
         "title": "الوجود الرقمي بعد الموت - \"خلود\" بفضل الذكاء الاصطناعي",
         "category": "technology",
         "id": "FMnm2cKfxb0",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/FMnm2cKfxb0?autoplay=1&mute=1",
-        "duration": "28:25"
+        "duration": "28:25",
+        "date": "2025-04-03",
+        "channel": "dw"
     },
     {
         "title": "ما هو دور الأمعاء في جسد الإنسان؟ - تغذية ومناعة وصحة نفسية ",
@@ -182,7 +225,9 @@
         "id": "_98ItKGmIW8",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/_98ItKGmIW8?autoplay=1&mute=1",
-        "duration": "42:25"
+        "duration": "42:25",
+        "date": "2025-01-10",
+        "channel": "dw"
     },
     {
         "title": "عودة بقّ الفراش إلى أوروبا: حرب الفنادق والمختصين ضد الحشرات الطفيلية",
@@ -190,6 +235,79 @@
         "id": "KfOSDkcM9zo",
         "lang": "ar",
         "embed": "https://www.youtube-nocookie.com/embed/KfOSDkcM9zo?autoplay=1&mute=1",
-        "duration": "28:25"
+        "duration": "28:25",
+        "date": "2024-08-08",
+        "channel": "dw"
+        },
+    
+    {
+        "title": "مملكة الدب القطبي | مستكشفوا المحيط",
+        "category": "nature",
+        "id": "exssGPr5Dx0",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/exssGPr5Dx0?si=vJHvfBO0tAqnMvfn&autoplay=1&mute=1",
+        "duration": "44:08",
+        "date": "2024-12-31",
+        "channel": "natgeo"
+    },
+    {
+        "title": "خاص القروش: أسماك القرش آكلة اللحوم",
+        "category": "nature",
+        "id": "aR-bSgfTEQg",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/aR-bSgfTEQg?autoplay=1&mute=1",
+        "duration": "44:14",
+        "date": "2020-01-24",
+        "channel": "natgeo"
+    },
+    {
+        "title": "مخلوقات المستنقع | الموت قبل بزوغ الفجر",
+        "category": "nature",
+        "id": "G6QX3YKCr1A",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/G6QX3YKCr1A?autoplay=1&mute=1",
+        "duration": "42:21",
+        "date": "2025-02-27",
+        "channel": "natgeo"
+    },
+    {
+        "title": "صدمة ورعب | الحيوانات البرية",
+        "category": "nature",
+        "id": "aRdILctumwI",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/aRdILctumwI?autoplay=1&mute=1",
+        "duration": "43:42",
+        "date": "2025-05-16",
+        "channel": "natgeo"
+    },
+    {
+        "title": "رانج روفر إيفوك | صانع السيارات الخارقة",
+        "category": "cars",
+        "id": "wQ0F0M-CO90",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/wQ0F0M-CO90?autoplay=1&mute=1",
+        "duration": "43:35",
+        "date": "2025-05-08",
+        "channel": "natgeo"
+    },
+    {
+        "title": "أجمل المواقع الطبيعية في الجزر البريطانية",
+        "category": "nature",
+        "id": "TWlFzZk37M4",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/TWlFzZk37M4?si=340I27j7f0lCzlkl&autoplay=1&mute=1",
+        "duration": "1:27:47",
+        "date": "2023-05-19",
+        "channel": "dw"
+    },
+    {
+        "title": "خطر فقدان السمع - الحفاظ على السمع الجيد من منظور علمي",
+        "category": "nature",
+        "id": "-_WUjuUIIe4",
+        "lang": "ar",
+        "embed": "https://www.youtube-nocookie.com/embed/-_WUjuUIIe4?si=HEF0KqVwzS48DiQD&autoplay=1&mute=1",
+        "duration": "42:25",
+        "date": "2024-07-07",
+        "channel": "dw"
     }
 ]
