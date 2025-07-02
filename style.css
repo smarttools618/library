@@ -216,7 +216,6 @@ body {
   border: 2.5px solid #ffbdbd;
   border-image: linear-gradient(90deg, #ffbdbd 0%, #ffe0b2 100%);
   border-image-slice: 1;
-  box-shadow: 0 2px 16px 0 rgba(183,28,28,0.10), 0 0.5px 0 #ffbdbd inset;
 }
 .disclaimer-bar .disclaimer-icon {
   font-size: 1.6em;
@@ -228,6 +227,9 @@ body {
   font-weight: 600;
   line-height: 1.7;
   letter-spacing: 0.01em;
+}
+.disclaimer-card {
+  box-shadow: 0 2px 12px 0 #fff;
 }
 
 /* --- Top Bar & Header --- */
@@ -473,7 +475,9 @@ html[dir="ltr"] .search-input { padding: 14px 50px 14px 20px; }
 }
 html[dir="ltr"] .search-icon { left: auto; right: 18px; }
 .channel-filter-under-search {
-    display: flex; flex-wrap: wrap; align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 8px; margin-bottom: 24px;
 }
 .channel-filter-under-search legend { display: none; }
@@ -566,7 +570,8 @@ html[dir="ltr"] .filter-chip i { margin-left: 0; margin-right: 2px; }
 .video-card:hover .video-thumbnail img { transform: scale(1.08); }
 .video-thumbnail-overlay {
     position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex;
-    justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4);
+    justify-content: center; align-items: center;
+    background: rgba(0, 0, 0, 0.4);
     opacity: 0; transition: var(--ease-cubic);
 }
 .video-card:hover .video-thumbnail-overlay { opacity: 1; }
