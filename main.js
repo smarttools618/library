@@ -18,6 +18,7 @@ const translations = {
         logoText: "المكتبة",
         languageBtn: "العربية",
         helpBtnLabel: "مساعدة و تواصل",
+        instructionsBtnLabel: "تعليمات",
         resetFilters: "إعادة تعيين الفلاتر",
         videoCountLabel: "عدد الوثائقيات",
         searchPlaceholder: "ابحث عن وثائقي...",
@@ -51,12 +52,28 @@ const translations = {
         summaryOrder: "الترتيب",
         orderNew: "الأحدث أولاً",
         orderOld: "الأقدم أولاً",
+        disclaimerTitle: "تنويه هام",
+        disclaimerText: "موقع \"المكتبة\" هو مُجمِّع للمحتوى الوثائقي المتاح للعموم. الآراء الواردة في الفيديوهات تخص صانعيها فقط ولا تعبر عن وجهة نظرنا. جميع الحقوق محفوظة لأصحابها الأصليين.",
+        disclaimerOk: "موافق",
+        instructionsModalTitle: "كيفية الاستخدام",
+        instructionsDesktopTitle: "واجهة سطح المكتب",
+        instructionsDesktop1: "استخدم الشريط الجانبي على اليمين للتصفية حسب التصنيف أو لغة الفيديو.",
+        instructionsDesktop2: "استخدم شريط البحث وأزرار القنوات لتخصيص بحثك.",
+        instructionsDesktop3: "رتّب النتائج باستخدام أزرار \"الأحدث\" و \"الأقدم\".",
+        instructionsMobileTitle: "واجهة الجوال",
+        instructionsMobile1: "استخدم الأزرار العائمة في أسفل اليمين:",
+        instructionsMobileFilter: "تصفية حسب التصنيف",
+        instructionsMobileLang: "تصفية حسب لغة الفيديو",
+        instructionsMobileChannel: "تصفية حسب القناة",
+        instructionsMobileReset: "إعادة تعيين كل الفلاتر",
+        instructionsMobile2: "يظهر شريط البحث وأزرار الترتيب في أعلى المحتوى."
     },
     en: {
         pageTitle: "The Library",
         logoText: "The Library",
         languageBtn: "English",
         helpBtnLabel: "Help & Contact",
+        instructionsBtnLabel: "Instructions",
         resetFilters: "Reset Filters",
         videoCountLabel: "Documentaries",
         searchPlaceholder: "Search for a documentary...",
@@ -90,6 +107,21 @@ const translations = {
         summaryOrder: "Order",
         orderNew: "Newest First",
         orderOld: "Oldest First",
+        disclaimerTitle: "Important Disclaimer",
+        disclaimerText: "\"The Library\" only aggregates publicly available documentaries. Opinions in the videos belong to their creators and do not represent our views. All rights reserved to their original owners.",
+        disclaimerOk: "OK",
+        instructionsModalTitle: "How to Use",
+        instructionsDesktopTitle: "Desktop View",
+        instructionsDesktop1: "Use the sidebar on the right to filter by category or video language.",
+        instructionsDesktop2: "Use the search bar and channel buttons to refine your search.",
+        instructionsDesktop3: "Sort results using the 'Newest' and 'Oldest' buttons.",
+        instructionsMobileTitle: "Mobile View",
+        instructionsMobile1: "Use the floating buttons at the bottom right:",
+        instructionsMobileFilter: "Filter by Category",
+        instructionsMobileLang: "Filter by Video Language",
+        instructionsMobileChannel: "Filter by Channel",
+        instructionsMobileReset: "Reset all filters",
+        instructionsMobile2: "The search bar and sort buttons appear at the top of the content."
     }
 };
 
@@ -120,11 +152,17 @@ const elements = {
     helpBtn: document.getElementById('help-btn'),
     helpModal: document.getElementById('help-modal'),
     closeHelpBtn: document.getElementById('close-help-modal'),
+    instructionsBtn: document.getElementById('instructions-btn'),
+    floatingInstructionsBtn: document.getElementById('floating-instructions-btn'),
+    instructionsModal: document.getElementById('instructions-modal'),
+    closeInstructionsBtn: document.getElementById('close-instructions-modal'),
     searchInput: document.getElementById('search-input'),
     scrollTrigger: document.getElementById('scroll-trigger'),
     loader: document.getElementById('loader'),
     langSelectionModal: document.getElementById('lang-selection-modal'),
     floatingVideoLangBtn: document.getElementById('floating-video-lang-btn'),
+    disclaimerModal: document.getElementById('disclaimer-modal'),
+    disclaimerOkBtn: document.getElementById('disclaimer-ok-btn')
 };
 
 const flags = {
@@ -132,26 +170,19 @@ const flags = {
     en: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cclipPath id='a'%3e%3cpath d='M0,0 v30 h60 v-30 z'/%3e%3c/clipPath%3e%3cpath d='M0,0 v30 h60 v-30 z' fill='%2300247d'/%3e%3cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6' clip-path='url(%23a)'/%3e%3cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23cf142b' stroke-width='4' clip-path='url(%23a)'/%3e%3cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3e%3cpath d='M30,0 v30 M0,15 h60' stroke='%23cf142b' stroke-width='6'/%3e%3c/svg%3e`,
 };
 
-// --- Disclaimer translations ---
-const disclaimerTranslations = {
-  ar: {
-    title: "تنويه هام",
-    text: 'موقع "المكتبة" يُجمِّع الوثائقيات العامة فقط. الآراء في الفيديوهات تعود لصانعيها ولا تعبر عن رأينا. جميع الحقوق محفوظة لأصحابها.'
-  },
-  en: {
-    title: "Important Disclaimer",
-    text: '"The Library" only aggregates publicly available documentaries. Opinions in the videos belong to their creators and do not represent our views. All rights reserved to their original owners.'
-  }
-};
-
+// --- Disclaimer Update ---
 function updateDisclaimer(lang) {
-  const title = document.getElementById('disclaimer-title');
-  const text = document.getElementById('disclaimer-text');
-  if (title && text) {
-    title.textContent = disclaimerTranslations[lang].title;
-    text.textContent = disclaimerTranslations[lang].text;
-  }
+    const T = translations[lang];
+    // Update disclaimer in footer
+    const footer = document.getElementById('disclaimer-footer');
+    if (footer) {
+        const title = footer.querySelector('[data-translate-key="disclaimerTitle"]');
+        const text = footer.querySelector('[data-translate-key="disclaimerText"]');
+        if (title) title.textContent = T.disclaimerTitle;
+        if (text) text.textContent = T.disclaimerText;
+    }
 }
+
 
 // --- App Initialization & Core Logic ---
 
@@ -164,8 +195,6 @@ const closeModal = (modalElement) => {
         elements.playerContainer.innerHTML = '';
     }
     
-    // *** FIX ***: The faulty logic that called initializeApp prematurely has been removed.
-    // The new logic is handled correctly by the event listeners.
     if (modalElement.id === 'lang-selection-modal' && !isAppInitialized) {
         // If user closes modal without choosing, default to 'ar'
         initializeApp('ar');
@@ -173,6 +202,7 @@ const closeModal = (modalElement) => {
 };
 
 const openModal = (modalElement) => {
+    if (!modalElement) return;
     modalElement.classList.add('active');
     document.body.style.overflow = 'hidden';
 };
@@ -191,6 +221,8 @@ const applyTranslations = (lang) => {
 
     elements.htmlEl.lang = lang;
     elements.htmlEl.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    
+    updateDisclaimer(lang);
 
     if (isAppInitialized) {
         updateUI();
@@ -213,16 +245,23 @@ function fetchDocumentariesAndInit() {
 }
 
 function setupInitialListeners() {
-    elements.langSelectionModal.addEventListener('click', e => {
-        if (e.target === elements.langSelectionModal) {
-            closeModal(elements.langSelectionModal);
-        }
-    });
 
+    // Only one event listener for langSelectionModal
     elements.langSelectionModal.addEventListener('click', e => {
+        // If click outside modal content, close modal (only if already initialized)
+        if (e.target === elements.langSelectionModal) {
+            if (isAppInitialized) closeModal(elements.langSelectionModal);
+            return;
+        }
+        // If click on a language button, set language and close modal
         const btn = e.target.closest('.lang-choice-btn');
         if (btn) {
-            initializeApp(btn.dataset.lang);
+            if (!isAppInitialized) {
+                initializeApp(btn.dataset.lang);
+            } else {
+                applyTranslations(btn.dataset.lang);
+                closeModal(elements.langSelectionModal);
+            }
         }
     });
     
@@ -234,10 +273,21 @@ function setupInitialListeners() {
             }
         }
     });
-}
 
-// *** FIX ***: All the functions below have been moved out of the 'videosLoaded' event listener
-// and into the main script scope. This makes them available immediately.
+    if (elements.headerLangBtn) {
+        elements.headerLangBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          openModal(elements.langSelectionModal);
+        });
+    }
+
+    if (elements.disclaimerModal) {
+        elements.disclaimerOkBtn.addEventListener('click', () => closeModal(elements.disclaimerModal));
+        elements.disclaimerModal.addEventListener('click', e => {
+            if (e.target === elements.disclaimerModal) closeModal(elements.disclaimerModal);
+        });
+    }
+}
 
 const getMaps = () => {
     const T = translations[currentUILanguage];
@@ -429,7 +479,11 @@ const updateUI = () => {
         (doc.title.toLowerCase().includes(searchTerm))
     );
     
-    currentFilteredVideos.sort((a, b) => new Date(b.date) - new Date(a.date) * (state.order === 'new' ? 1 : -1));
+    if (state.order === 'new') {
+        currentFilteredVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+        currentFilteredVideos.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
 
     elements.videoGrid.innerHTML = '';
     currentPage = 1;
@@ -493,27 +547,6 @@ function setupAppEventListeners() {
     elements.floatingCategoryBtn.addEventListener('click', () => openFilterModal('category'));
     elements.floatingVideoLangBtn.addEventListener('click', () => openFilterModal('videoLang'));
     document.getElementById('floating-channel-btn').addEventListener('click', () => openFilterModal('channel'));
-
-    let langDropdown = null;
-    const closeLangDropdown = () => {
-        if (langDropdown) {
-            langDropdown.remove();
-            langDropdown = null;
-            document.removeEventListener('click', closeLangDropdown);
-        }
-    };
-
-
-    // Sidebar language selection
-    document.querySelectorAll('.sidebar-lang-select .lang-choice-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const lang = btn.getAttribute('data-lang');
-            if (lang && lang !== currentUILanguage) {
-                applyTranslations(lang);
-            }
-        });
-    });
     
     elements.closeFilterModalBtn.addEventListener('click', () => closeModal(elements.filterModal));
     elements.filterModal.addEventListener('click', e => { if (e.target === elements.filterModal) closeModal(elements.filterModal); });
@@ -540,9 +573,15 @@ function setupAppEventListeners() {
 
     elements.closePlayerBtn.addEventListener('click', () => closeModal(elements.playerModal));
     elements.playerModal.addEventListener('click', e => { if (e.target === elements.playerModal) closeModal(elements.playerModal); });
+    
     elements.helpBtn.addEventListener('click', () => openModal(elements.helpModal));
     elements.closeHelpBtn.addEventListener('click', () => closeModal(elements.helpModal));
     elements.helpModal.addEventListener('click', e => { if (e.target === elements.helpModal) closeModal(elements.helpModal); });
+    
+    elements.instructionsBtn.addEventListener('click', () => openModal(elements.instructionsModal));
+    elements.floatingInstructionsBtn.addEventListener('click', () => openModal(elements.instructionsModal));
+    elements.closeInstructionsBtn.addEventListener('click', () => closeModal(elements.instructionsModal));
+    elements.instructionsModal.addEventListener('click', e => { if (e.target === elements.instructionsModal) closeModal(elements.instructionsModal); });
     
     window.addEventListener('resize', updateSelectedFiltersSummary);
     elements.themeToggle.addEventListener('click', () => { 
@@ -560,32 +599,29 @@ function setupAppEventListeners() {
 }
 
 function initializeApp(lang) {
-    // *** FIX ***: This function now acts as a gatekeeper.
-    // It waits for the 'videosLoaded' event before running the main logic.
     if (allDocumentaries.length === 0) {
         document.addEventListener('videosLoaded', () => initializeApp(lang), { once: true });
-        closeModal(elements.langSelectionModal); // Close modal to show progress
-        elements.loader.style.display = 'block'; // Show loader while waiting
+        closeModal(elements.langSelectionModal);
+        if (elements.loader) elements.loader.style.display = 'block';
         return;
     }
 
-    // If app is already running, just switch UI language.
     if(isAppInitialized) {
         applyTranslations(lang);
         closeModal(elements.langSelectionModal);
         return;
     }
-    
-    // --- First time initialization ---
+
     isAppInitialized = true;
     applyTranslations(lang);
-    
+
     const savedTheme = localStorage.getItem('theme') || 'light';
     elements.htmlEl.dataset.theme = savedTheme;
-    
+
     setupAppEventListeners();
     updateUI();
     closeModal(elements.langSelectionModal);
+    openModal(elements.disclaimerModal); // Show disclaimer on first proper launch
 }
 
 // --- App Startup ---
@@ -595,26 +631,3 @@ document.addEventListener('DOMContentLoaded', () => {
     openModal(elements.langSelectionModal);
     fetchDocumentariesAndInit();
 });
-
-// The 'videosLoaded' event is now just a signal. 
-// The initializeApp function listens for it if needed.
-
-// --- Fix header language button to open language modal ---
-document.addEventListener('DOMContentLoaded', function() {
-  if (elements.headerLangBtn) {
-    elements.headerLangBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      openModal(elements.langSelectionModal);
-    });
-  }
-});
-
-// --- Update disclaimer on language change ---
-const originalApplyTranslations = applyTranslations;
-applyTranslations = function(lang) {
-  originalApplyTranslations(lang);
-  updateDisclaimer(lang);
-};
-
-// On first load, set disclaimer to current language
-updateDisclaimer(currentUILanguage);
