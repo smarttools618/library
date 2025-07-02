@@ -132,6 +132,27 @@ const flags = {
     en: `data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cclipPath id='a'%3e%3cpath d='M0,0 v30 h60 v-30 z'/%3e%3c/clipPath%3e%3cpath d='M0,0 v30 h60 v-30 z' fill='%2300247d'/%3e%3cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6' clip-path='url(%23a)'/%3e%3cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23cf142b' stroke-width='4' clip-path='url(%23a)'/%3e%3cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3e%3cpath d='M30,0 v30 M0,15 h60' stroke='%23cf142b' stroke-width='6'/%3e%3c/svg%3e`,
 };
 
+// --- Disclaimer translations ---
+const disclaimerTranslations = {
+  ar: {
+    title: "تنويه هام",
+    text: 'موقع "المكتبة" يُجمِّع الوثائقيات العامة فقط. الآراء في الفيديوهات تعود لصانعيها ولا تعبر عن رأينا. جميع الحقوق محفوظة لأصحابها.'
+  },
+  en: {
+    title: "Important Disclaimer",
+    text: '"The Library" only aggregates publicly available documentaries. Opinions in the videos belong to their creators and do not represent our views. All rights reserved to their original owners.'
+  }
+};
+
+function updateDisclaimer(lang) {
+  const title = document.getElementById('disclaimer-title');
+  const text = document.getElementById('disclaimer-text');
+  if (title && text) {
+    title.textContent = disclaimerTranslations[lang].title;
+    text.textContent = disclaimerTranslations[lang].text;
+  }
+}
+
 // --- App Initialization & Core Logic ---
 
 const closeModal = (modalElement) => {
@@ -577,3 +598,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // The 'videosLoaded' event is now just a signal. 
 // The initializeApp function listens for it if needed.
+
+// --- Fix header language button to open language modal ---
+document.addEventListener('DOMContentLoaded', function() {
+  if (elements.headerLangBtn) {
+    elements.headerLangBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal(elements.langSelectionModal);
+    });
+  }
+});
+
+// --- Update disclaimer on language change ---
+const originalApplyTranslations = applyTranslations;
+applyTranslations = function(lang) {
+  originalApplyTranslations(lang);
+  updateDisclaimer(lang);
+};
+
+// On first load, set disclaimer to current language
+updateDisclaimer(currentUILanguage);

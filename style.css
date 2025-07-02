@@ -186,6 +186,50 @@ body {
 }
 .page-container { display: flex; }
 
+/* --- Disclaimer Bar (NEW) --- */
+.disclaimer-bar {
+  background: linear-gradient(90deg, #ffeaea 0%, #fff6e0 100%);
+  color: #b71c1c;
+  border: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 100;
+}
+.disclaimer-bar .disclaimer-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 600px;
+  width: 100%;
+  padding: 12px 0;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  transition: margin 0.2s;
+  border-radius: 18px;
+  border: 2.5px solid #ffbdbd;
+  border-image: linear-gradient(90deg, #ffbdbd 0%, #ffe0b2 100%);
+  border-image-slice: 1;
+  box-shadow: 0 2px 16px 0 rgba(183,28,28,0.10), 0 0.5px 0 #ffbdbd inset;
+}
+.disclaimer-bar .disclaimer-icon {
+  font-size: 1.6em;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 0 #fff6e0);
+}
+.disclaimer-bar .disclaimer-text {
+  font-size: 1.13em;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
 /* --- Top Bar & Header --- */
 .top-bar {
     position: fixed;
@@ -664,10 +708,36 @@ html[dir="ltr"] .floating-controls { right: auto; left: 24px; }
 
 @media (min-width: 1025px) {
   #floating-channel-btn { display: none !important; }
+
+  /* --- Disclaimer Bar Desktop Alignment --- */
+  .disclaimer-bar .disclaimer-inner {
+    /* On desktop, align with the main content area. RTL is default. */
+    margin-right: 260px; /* Space for right sidebar */
+    margin-left: auto;   /* Align to the left edge of main content */
+    max-width: 900px;   
+  }
+  html[dir="ltr"] .disclaimer-bar .disclaimer-inner {
+    /* For LTR layout, align with main content. Sidebar is on the left. */
+    margin-left: 260px;   /* Space for left sidebar */
+    margin-right: auto;  /* Align to the right edge of main content */
+  }
 }
 @media (max-width: 768px) {
     .video-grid { grid-template-columns: 1fr; gap: 20px; }
 }
+
+@media (max-width: 600px) {
+    /* --- Disclaimer Bar Mobile Sizing --- */
+    .disclaimer-bar .disclaimer-inner {
+      max-width: 98vw;
+      padding: 10px 2vw;
+      font-size: 0.98em;
+    }
+    .disclaimer-bar .disclaimer-text {
+      font-size: 1em;
+    }
+}
+
 @media (max-width: 480px) {
     body { padding-top: 60px; }
     .top-bar { height: 60px; }

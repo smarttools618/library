@@ -20,6 +20,105 @@
 </head>
 
 <body>
+    <!-- Disclaimer Bar (advanced, compact, card-like design, dynamic language) -->
+    <div class="disclaimer-bar">
+      <div class="disclaimer-card" id="disclaimer-card">
+        <span class="disclaimer-icon"><i class="fas fa-exclamation-circle"></i></span>
+        <div class="disclaimer-content">
+          <span class="disclaimer-title" id="disclaimer-title">تنويه هام</span>
+          <span class="disclaimer-text" id="disclaimer-text">موقع "المكتبة" يُجمِّع الوثائقيات العامة فقط. الآراء في الفيديوهات تعود لصانعيها ولا تعبر عن رأينا. جميع الحقوق محفوظة لأصحابها.</span>
+        </div>
+      </div>
+    </div>
+    <style>
+      .disclaimer-bar {
+        background: transparent;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 100;
+        pointer-events: none;
+      }
+      .disclaimer-bar .disclaimer-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        max-width: 420px;
+        min-width: 0;
+        width: 100%;
+        padding: 10px 18px 10px 18px;
+        background: linear-gradient(120deg, #fff6f6 60%, #ffe0e0 100%);
+        border-radius: 16px;
+        border: 1.5px solid #e57373;
+        box-shadow: 0 2px 12px 0 rgba(183,28,28,0.10), 0 0.5px 0 #ffbdbd inset;
+        margin: 18px auto 0 auto;
+        position: relative;
+        overflow: hidden;
+        transition: box-shadow 0.2s, border 0.2s;
+        pointer-events: auto;
+      }
+      .disclaimer-bar .disclaimer-icon {
+        font-size: 1.7em;
+        flex-shrink: 0;
+        color: #d32f2f;
+        background: linear-gradient(135deg, #fff 60%, #ffeaea 100%);
+        border-radius: 50%;
+        box-shadow: 0 1px 6px 0 #ffbdbd44;
+        padding: 4px;
+        margin-top: 2px;
+        border: 1.5px solid #ffbdbd;
+      }
+      .disclaimer-bar .disclaimer-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1 1 0%;
+      }
+      .disclaimer-bar .disclaimer-title {
+        font-size: 1.02em;
+        font-weight: bold;
+        color: #b71c1c;
+        background: #fff0f0;
+        border-radius: 8px;
+        padding: 2px 10px 2px 10px;
+        margin-bottom: 2px;
+        letter-spacing: 0.03em;
+        box-shadow: 0 1px 4px 0 #ffbdbd33;
+        align-self: flex-start;
+      }
+      .disclaimer-bar .disclaimer-text {
+        font-size: 0.97em;
+        font-weight: 500;
+        color: #a13a3a;
+        line-height: 1.6;
+        letter-spacing: 0.01em;
+        margin: 0;
+      }
+      @media (max-width: 600px) {
+        .disclaimer-bar .disclaimer-card {
+          max-width: 98vw !important;
+          padding: 8px 2vw 8px 2vw !important;
+        }
+        .disclaimer-bar .disclaimer-title {
+          font-size: 0.98em !important;
+        }
+        .disclaimer-bar .disclaimer-text {
+          font-size: 0.96em !important;
+        }
+      }
+      @media (min-width: 1024px) {
+        .disclaimer-bar .disclaimer-card {
+          margin-left: auto !important;
+          margin-right: auto !important;
+          max-width: 420px !important;
+        }
+      }
+    </style>
+    
     <div class="top-bar">
         <a href="index.html" class="logo">
             <span class="logo-icon"><i class="fas fa-book-open"></i></span>
