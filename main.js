@@ -7,7 +7,7 @@ let state = { category: 'all', videoLang: 'all', channel: 'all', search: '', ord
 // --- Infinite Scroll State ---
 let currentFilteredVideos = [];
 let currentPage = 1;
-const videosPerPage = 12;
+const videosPerPage = 4; // Show only 4 videos at a time for best performance
 let isLoading = false;
 let isAppInitialized = false;
 
@@ -397,7 +397,17 @@ const renderChannelButtons = () => {
         const btn = e.target.closest('.channel-option-btn');
         if (btn) {
             state.channel = btn.dataset.value;
-            updateUI();
+            // Show loader immediately for better UX
+            if (elements.videoGrid) {
+                elements.videoGrid.innerHTML = '';
+            }
+            if (elements.loader) {
+                elements.loader.style.display = 'block';
+            }
+            // Defer updateUI to next frame for smoother UI
+            setTimeout(() => {
+                updateUI();
+            }, 50);
         }
     });
 };
@@ -414,7 +424,7 @@ const renderVideos = (docs) => {
         const channelName = getMaps().channel.options[doc.channel]?.name || doc.channel;
         card.innerHTML = `
         <div class="video-thumbnail">
-            <img src="https://i.ytimg.com/vi/${doc.id}/hqdefault.jpg" alt="${doc.title}" loading="lazy">
+            <img src="https://i.ytimg.com/vi/${doc.id}/hqdefault.jpg" alt="${doc.title}" loading="lazy" decoding="async">
             <div class="video-thumbnail-overlay"><i class="fas fa-play play-icon"></i></div>
             <span class="video-duration">${doc.duration}</span>
         </div>
@@ -428,6 +438,9 @@ const renderVideos = (docs) => {
                 </div>
             </div>
         </div>`;
+        // Lazy load iframe only when card is clicked (not in grid)
+        card.addEventListener('click', () => openVideoModal(doc));
+        card.addEventListener('keypress', (e) => { if (e.key === 'Enter') openVideoModal(doc); });
         elements.videoGrid.appendChild(card);
     });
 };
@@ -441,13 +454,21 @@ const loadMoreVideos = () => {
     const end = start + videosPerPage;
     const videosToLoad = currentFilteredVideos.slice(start, end);
 
-    setTimeout(() => {
+    // Use requestAnimationFrame for smoother UI
+    requestAnimationFrame(() => {
         renderVideos(videosToLoad);
         currentPage++;
         isLoading = false;
         elements.loader.style.display = 'none';
-    }, 300);
+    });
 };
+// Open video modal and lazy load iframe only when needed
+function openVideoModal(doc) {
+    elements.playerTitle.textContent = doc.title;
+    // Only load iframe when modal is opened
+    elements.playerContainer.innerHTML = `<iframe src="${doc.embed}${doc.embed.includes('?') ? '&' : '?'}rel=0" title="${doc.title}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+    openModal(elements.playerModal);
+}
 
 const generateContentTitle = () => {
     const T = translations[currentUILanguage];

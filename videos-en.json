@@ -1,5 +1,55 @@
 [
     {
+        "title": "Mortal Combat (Full Episode) | Animal Fight Night",
+        "category": "nature",
+        "id": "whksDmTR9YE",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/whksDmTR9YE?si=FC6MyQ-xjo1LP-ra&autoplay=1&mute=1",
+        "duration": "44:23",
+        "date": "2022-05-12",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Underwater Killers (Full Episode) | World's Deadliest",
+        "category": "nature",
+        "id": "eZ2Rt2DVGdU",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/eZ2Rt2DVGdU?si=M0q7oFlLV6y1hCkW&autoplay=1&mute=1",
+        "duration": "45:24",
+        "date": "2022-07-31",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Win or Die (Full Episode) | Savage Kingdom",
+        "category": "nature",
+        "id": "4IenX7OHumk",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/4IenX7OHumk?si=IouC2RrYWoS4riQY&autoplay=1&mute=1",
+        "duration": "50:23",
+        "date": "2022-06-05",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Deadly Under Dogs (Full Episode) | Animal Fight Night",
+        "category": "nature",
+        "id": "zAXbdzvCeV8",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/zAXbdzvCeV8?si=-kGq4xAPChFwrI0U&autoplay=1&mute=1",
+        "duration": "44:23",
+        "date": "2022-05-26",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Ultimate Predators (Full Episode) | World's Deadliest",
+        "category": "nature",
+        "id": "IDRhnXt02v4",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/IDRhnXt02v4?si=K1Qk2E1YHXbU5WFa&autoplay=1&mute=1",
+        "duration": "47:19",
+        "date": "2022-06-18",
+        "channel": "natgeo"
+    },
+    {
         "title": "Our Planet | Coastal Seas",
         "category": "nature",
         "id": "r9PeYPHdpNo",
@@ -27,7 +77,7 @@
         "embed": "https://www.youtube-nocookie.com/embed/NQgal5kteYw?si=K7mxcoEC8bFadZEs&autoplay=1",
         "duration": "44:24",
         "date": "2025-03-04",
-        "channel": "nat geo"
+        "channel": "natgeo"
     },
     {
         "title": "Our Planet | High Seas",
@@ -98,5 +148,216 @@
         "duration": "44:24",
         "date": "2025-04-28",
         "channel": "natgeo"
+    }
+    ,
+    {
+        "title": "Polar (Full Episode) | Hostile Planet",
+        "category": "nature",
+        "id": "s3Kzt5_Jixg",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/s3Kzt5_Jixg?si=25Ppkw9g6oeh2Pq_&autoplay=1&mute=1",
+        "duration": "47:21",
+        "date": "2024-01-13",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Wildlife Warrior (Full Episode) | Kings of the Wild",
+        "category": "nature",
+        "id": "Q4xf-ca0GWQ",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/Q4xf-ca0GWQ?si=YISl-aIZndjxqGBt&autoplay=1&mute=1",
+        "duration": "44:24",
+        "date": "2024-11-27",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Jungles: Survival of the Fittest (Full Episode) | Hostile Planet",
+        "category": "nature",
+        "id": "Ap8jTCMK3c4",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/Ap8jTCMK3c4?si=UcYeIAXul9W7hxij&autoplay=1&mute=1",
+        "duration": "47:21",
+        "date": "2024-04-01",
+        "channel": "natgeo"
+    },
+    {
+        "title": "3 Lions vs. 1 Rhino (Full Episode) | Animal Fight Night",
+        "category": "nature",
+        "id": "CZehA6Ah69g",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/CZehA6Ah69g?si=PuLuRAUREBdZ0O0N&autoplay=1&mute=1",
+        "duration": "44:24",
+        "date": "2025-06-06",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Grizzly Bear Summer | Wild Yellowstone",
+        "category": "nature",
+        "id": "DGLU6Rz1TDA",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/DGLU6Rz1TDA?si=vpdEuJzJsXDiCEcG&autoplay=1&mute=1",
+        "duration": "44:27",
+        "date": "2025-05-23",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Epic Dogs (Full Episode) | Super Pups",
+        "category": "nature",
+        "id": "QT47chFHThM",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/QT47chFHThM?si=tV1rQMMu76jgmrhW&autoplay=1&mute=1",
+        "duration": "44:24",
+        "date": "2025-03-28",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Tiger Wars (Full Episode) | The Living Edens",
+        "category": "nature",
+        "id": "tKFAxt6NRHE",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/tKFAxt6NRHE?si=NTj0HVCSGQkNNuOc&autoplay=1&mute=1",
+        "duration": "44:14",
+        "date": "2025-03-12",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Lioness: Throne of Power (Full Episode) | Regime of the Queen ",
+        "category": "nature",
+        "id": "HDOqIgdJ2Ko",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/HDOqIgdJ2Ko?si=0SrJnei2GptmidsJ&autoplay=1&mute=1",
+        "duration": "44:24",
+        "date": "2025-03-21",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Clash of the Titans (Full Episode) | Animal Fight Night",
+        "category": "nature",
+        "id": "DyEAEmNqk-I",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/DyEAEmNqk-I?si=e_2hBbUpxV6vXQH_&autoplay=1&mute=1",
+        "duration": "44:24",
+        "date": "2024-11-11",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Hunt for the Giant Squid | SPECIAL",
+        "category": "nature",
+        "id": "FBLNLJRE71o",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/FBLNLJRE71o?si=BhaPjDE3vs9rb5d_&autoplay=1&mute=1",
+        "duration": "44:24",
+        "date": "2025-01-24",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Surviving Grand Teton: America's National Parks (Full Episode)",
+        "category": "nature",
+        "id": "LdW3jRm4B6s",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/LdW3jRm4B6s?si=NyjFJOk7m6ZVtR4m&autoplay=1&mute=1",
+        "duration": "44:17",
+        "date": "2024-09-30",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Pyramids and King Tut (Full Episode) | Lost Treasures of Egypt",
+        "category": "history",
+        "id": "BR2ZMj3o5EU",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/BR2ZMj3o5EU?si=jaSEZ3xUQ8lLf_eA&autoplay=1",
+        "duration": "44:24",
+        "date": "2025-04-20",
+        "channel": "natgeo"
+    },
+    {
+        "title": "The Rise of the Roman Empire (Full Episode) | Drain the Oceans",
+        "category": "history",
+        "id": "zxKPjD8urG4",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/zxKPjD8urG4?si=kVAqS7Mg-jAHYRRx&autoplay=1",
+        "duration": "47:22",
+        "date": "2024-01-04",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Lost World of the Maya (Full Episode)",
+        "category": "history",
+        "id": "7MFKy7DJsCY",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/7MFKy7DJsCY?si=yaFZccTcWncfvyqx&autoplay=1",
+        "duration": "44:24",
+        "date": "2020-12-30",
+        "channel": "natgeo"
+    },
+    {
+        "title": "Smart insects - The astonishing intelligence of bumblebees, wasps & co.",
+        "category": "science",
+        "id": "Iy6eAE3hmas",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/Iy6eAE3hmas?si=YNbTJwnz7qVwbRXU&autoplay=1",
+        "duration": "42:25",
+        "date": "2024-09-18",
+        "channel": "dw"
+    },
+    {
+        "title": "How our brain judges people in a split second",
+        "category": "science",
+        "id": "XOfeqRgaF1A",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/XOfeqRgaF1A?si=Jr8Cm2NyO-mjq30M&autoplay=1",
+        "duration": "42:25",
+        "date": "2022-10-26",
+        "channel": "dw"
+    },
+    {
+        "title": "Will artificial intelligence save us or kill us? | Us & Them",
+        "category": "technology",
+        "id": "KspkgAZUkoQ",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/KspkgAZUkoQ?si=6B1qoIjQ40Edh3vw&autoplay=1",
+        "duration": "28:25",
+        "date": "2024-09-01",
+        "channel": "dw"
+    },
+    {
+        "title": "Doctors, apps and artificial intelligence - The future of medicine",
+        "category": "technology",
+        "id": "vyit-1zKsZ4",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/vyit-1zKsZ4?si=40dY3rzs78isum7Z&autoplay=1",
+        "duration": "28:25",
+        "date": "2022-12-13",
+        "channel": "dw"
+    },
+    {
+        "title": "China's competition for living space",
+        "category": "society",
+        "id": "C6wY2b9amnA",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/C6wY2b9amnA?si=MYS9A3JpFmYU9xVb&autoplay=1",
+        "duration": "42:25",
+        "date": "2021-05-30",
+        "channel": "dw"
+    },
+    {
+        "title": "Artificial intelligence in agriculture",
+        "category": "technology",
+        "id": "Vpchh74tU3U",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/Vpchh74tU3U?si=ErGSlGyaBsKnSd6r&autoplay=1",
+        "duration": "25:55",
+        "date": "2025-06-22",
+        "channel": "dw"
+    },
+    {
+        "title": "How climate change threatens coffee production ",
+        "category": "technology",
+        "id": "dqnZkvKIo0g",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/dqnZkvKIo0g?si=4IFQdtqaknifC8fC&autoplay=1",
+        "duration": "28:25",
+        "date": "2024-10-01",
+        "channel": "dw"
     }
 ]
