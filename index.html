@@ -36,7 +36,7 @@
     </script>
     
     <script src="main.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -49,19 +49,18 @@
         <div class="header-controls">
             <div class="lang-control-wrapper">
                 <button class="header-btn" id="header-lang-btn" aria-label="Change Language" title="Change Language">
-                    <i class="fas fa-language"></i>
-                    <span data-translate-key="languageBtn">اللغة</span>
+                <i class="fas fa-language"></i>
                 </button>
             </div>
-            <button class="header-btn" id="instructions-btn" aria-label="Instructions" data-translate-key="instructionsBtnLabel">
+            <button class="header-btn" id="instructions-btn" aria-label="Instructions" title="Instructions" data-translate-key="instructionsBtnLabel">
                 <i class="fas fa-info-circle"></i>
             </button>
-            <button class="header-btn" id="help-btn" aria-label="Help & Contact" data-translate-key="helpBtnLabel">
+            <button class="header-btn" id="help-btn" aria-label="Help & Contact" title="Help & Contact" data-translate-key="helpBtnLabel">
                 <i class="fas fa-question-circle"></i>
             </button>
             <button class="header-btn theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
+                <i class="fa-solid fa-moon"></i>
+                <i class="fa-solid fa-sun"></i>
             </button>
         </div>
     </div>
@@ -79,8 +78,8 @@
                     <i class="fas fa-sync-alt"></i>
                     <span data-translate-key="resetFilters">إعادة تعيين الفلاتر</span>
                 </button>
-                <fieldset class="filter-group category-scrollable" id="category-filters" style="min-height: 180px; max-height: 45vh;"></fieldset>
-                <fieldset class="filter-group" id="video-lang-filters"></fieldset>
+                <fieldset class="filter-group category-scrollable" id="category-filters" style="min-height: 180px; max-height: 63vh;"></fieldset>
+                <!-- Removed video language filter from sidebar -->
             </form>
         </aside>
         <main class="main-content">
@@ -96,7 +95,34 @@
                 <i class="fas fa-search search-icon"></i>
                 <input type="search" id="search-input" class="search-input" data-translate-key="searchPlaceholder" placeholder="ابحث عن وثائقي...">
             </div>
-            
+            <!-- Donation Button under search bar -->
+            <div class="donation-bar">
+                <a href="https://ba9chich.com/en/smarttools" target="_blank" rel="noopener noreferrer" class="donate-btn">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span class="donate-text donate-text-ar">ادعمنا – تبرع</span>
+                    <span class="donate-text donate-text-en">Support Us – Donate</span>
+                </a>
+            </div>
+            <script>
+            // Show donation button text based on page language and update on language change
+            function updateDonateBtnLang() {
+                var htmlLang = document.documentElement.lang || document.querySelector('html').getAttribute('lang') || document.querySelector('html').getAttribute('data-lang');
+                if (!htmlLang) htmlLang = 'ar';
+                var ar = document.querySelector('.donate-text-ar');
+                var en = document.querySelector('.donate-text-en');
+                if (ar && en) {
+                    if (htmlLang.startsWith('ar')) {
+                        ar.style.display = 'inline';
+                        en.style.display = 'none';
+                    } else {
+                        ar.style.display = 'none';
+                        en.style.display = 'inline';
+                    }
+                }
+            }
+            document.addEventListener('DOMContentLoaded', updateDonateBtnLang);
+            document.addEventListener('langChanged', updateDonateBtnLang);
+            </script>
             <div id="channel-filters-container" class="channel-filter-under-search"></div>
             <div id="order-btn-placeholder"></div>
 
@@ -217,5 +243,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>

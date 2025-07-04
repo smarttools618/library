@@ -359,5 +359,105 @@
         "duration": "42:25",
         "date": "2024-07-07",
         "channel": "dw"
+    },
+    {
+        "title": "Pyramids and King Tut (Full Episode) | Lost Treasures of Egypt",
+        "category": "history",
+        "id": "BR2ZMj3o5EU",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/BR2ZMj3o5EU?si=jaSEZ3xUQ8lLf_eA&autoplay=1",
+        "duration": "44:24",
+        "date": "2025-04-20",
+        "channel": "nat geo"
+    },
+    {
+        "title": "The Rise of the Roman Empire (Full Episode) | Drain the Oceans",
+        "category": "history",
+        "id": "zxKPjD8urG4",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/zxKPjD8urG4?si=kVAqS7Mg-jAHYRRx&autoplay=1",
+        "duration": "47:22",
+        "date": "2024-01-04",
+        "channel": "nat geo"
+    },
+    {
+        "title": "Lost World of the Maya (Full Episode)",
+        "category": "history",
+        "id": "7MFKy7DJsCY",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/7MFKy7DJsCY?si=yaFZccTcWncfvyqx&autoplay=1",
+        "duration": "44:24",
+        "date": "2020-12-30",
+        "channel": "nat geo"
+    },
+    {
+        "title": "Smart insects - The astonishing intelligence of bumblebees, wasps & co.",
+        "category": "science",
+        "id": "Iy6eAE3hmas",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/Iy6eAE3hmas?si=YNbTJwnz7qVwbRXU&autoplay=1",
+        "duration": "42:25",
+        "date": "2024-09-18",
+        "channel": "dw"
+    },
+    {
+        "title": "How our brain judges people in a split second",
+        "category": "science",
+        "id": "XOfeqRgaF1A",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/XOfeqRgaF1A?si=Jr8Cm2NyO-mjq30M&autoplay=1",
+        "duration": "42:25",
+        "date": "2022-10-26",
+        "channel": "dw"
+    },
+    {
+        "title": "Will artificial intelligence save us or kill us? | Us & Them",
+        "category": "technology",
+        "id": "KspkgAZUkoQ",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/KspkgAZUkoQ?si=6B1qoIjQ40Edh3vw&autoplay=1",
+        "duration": "28:25",
+        "date": "2024-09-01",
+        "channel": "dw"
+    },
+    {
+        "title": "Doctors, apps and artificial intelligence - The future of medicine",
+        "category": "technology",
+        "id": "vyit-1zKsZ4",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/vyit-1zKsZ4?si=40dY3rzs78isum7Z&autoplay=1",
+        "duration": "28:25",
+        "date": "2022-12-13",
+        "channel": "dw"
+    },
+    {
+        "title": "China's competition for living space",
+        "category": "society",
+        "id": "C6wY2b9amnA",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/C6wY2b9amnA?si=MYS9A3JpFmYU9xVb&autoplay=1",
+        "duration": "42:25",
+        "date": "2021-05-30",
+        "channel": "dw"
+    },
+    {
+        "title": "Artificial intelligence in agriculture",
+        "category": "technology",
+        "id": "Vpchh74tU3U",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/Vpchh74tU3U?si=ErGSlGyaBsKnSd6r&autoplay=1",
+        "duration": "25:55",
+        "date": "2025-06-22",
+        "channel": "dw"
+    },
+    {
+        "title": "How climate change threatens coffee production ",
+        "category": "technology",
+        "id": "dqnZkvKIo0g",
+        "lang": "en",
+        "embed": "https://www.youtube-nocookie.com/embed/dqnZkvKIo0g?si=4IFQdtqaknifC8fC&autoplay=1",
+        "duration": "28:25",
+        "date": "2024-10-01",
+        "channel": "dw"
     }
 ]

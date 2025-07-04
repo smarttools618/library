@@ -66,7 +66,8 @@ const translations = {
         instructionsMobileLang: "تصفية حسب لغة الفيديو",
         instructionsMobileChannel: "تصفية حسب القناة",
         instructionsMobileReset: "إعادة تعيين كل الفلاتر",
-        instructionsMobile2: "يظهر شريط البحث وأزرار الترتيب في أعلى المحتوى."
+        instructionsMobile2: "يظهر شريط البحث وأزرار الترتيب في أعلى المحتوى.",
+        donateBtnText: "ادعمنا – تبرع"
     },
     en: {
         pageTitle: "The Library",
@@ -121,7 +122,8 @@ const translations = {
         instructionsMobileLang: "Filter by Video Language",
         instructionsMobileChannel: "Filter by Channel",
         instructionsMobileReset: "Reset all filters",
-        instructionsMobile2: "The search bar and sort buttons appear at the top of the content."
+        instructionsMobile2: "The search bar and sort buttons appear at the top of the content.",
+        donateBtnText: "Support Us – Donate"
     }
 };
 
@@ -224,9 +226,14 @@ const applyTranslations = (lang) => {
     
     updateDisclaimer(lang);
 
+    // Set video language filter to match UI language
+    state.videoLang = lang;
+
     if (isAppInitialized) {
         updateUI();
     }
+    // Dispatch event so donation button updates
+    document.dispatchEvent(new Event('langChanged'));
 };
 
 function fetchDocumentariesAndInit() {
@@ -274,10 +281,29 @@ function setupInitialListeners() {
         }
     });
 
+    // Responsive: hide header lang button on <=1024px, show only floating lang button
+    function updateLangBtnVisibility() {
+        if (window.innerWidth <= 1024) {
+            if (elements.headerLangBtn) elements.headerLangBtn.style.display = 'none';
+            if (elements.floatingVideoLangBtn) elements.floatingVideoLangBtn.style.display = '';
+        } else {
+            if (elements.headerLangBtn) elements.headerLangBtn.style.display = '';
+            if (elements.floatingVideoLangBtn) elements.floatingVideoLangBtn.style.display = '';
+        }
+    }
+    window.addEventListener('resize', updateLangBtnVisibility);
+    updateLangBtnVisibility();
+
     if (elements.headerLangBtn) {
         elements.headerLangBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          openModal(elements.langSelectionModal);
+            e.preventDefault();
+            openModal(elements.langSelectionModal);
+        });
+    }
+    if (elements.floatingVideoLangBtn) {
+        elements.floatingVideoLangBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(elements.langSelectionModal);
         });
     }
 
@@ -501,13 +527,14 @@ const updateUI = () => {
     
     const maps = getMaps();
     renderSidebarFilterOptions('category', maps.category, elements.categoryFilters);
-    renderSidebarFilterOptions('videoLang', maps.videoLang, elements.videoLangFilters);
+    // Removed videoLang filter from sidebar
     renderChannelButtons();
 };
 
 const resetFilters = () => {
     state.category = 'all';
-    state.videoLang = 'all';
+    // Always reset videoLang to the current UI language
+    state.videoLang = currentUILanguage;
     state.channel = 'all';
     state.search = '';
     state.order = 'new';
@@ -520,14 +547,13 @@ function setupAppEventListeners() {
     elements.desktopResetBtn.addEventListener('click', resetFilters);
     elements.floatingResetBtn.addEventListener('click', resetFilters);
     elements.videoGrid.addEventListener('click', e => { if (e.target.closest('#no-results-reset-btn')) resetFilters(); });
-    
+    // Only allow category filter in sidebar
     elements.filterForm.addEventListener('change', e => {
-        if (state.hasOwnProperty(e.target.name)) {
-            state[e.target.name] = e.target.value;
+        if (e.target.name === 'category') {
+            state.category = e.target.value;
             updateUI();
         }
     });
-
     document.getElementById('order-btn-placeholder').addEventListener('click', e => {
         const btn = e.target.closest('.order-btn');
         if(btn) { state.order = btn.dataset.order; updateUI(); }
@@ -545,7 +571,6 @@ function setupAppEventListeners() {
     };
 
     elements.floatingCategoryBtn.addEventListener('click', () => openFilterModal('category'));
-    elements.floatingVideoLangBtn.addEventListener('click', () => openFilterModal('videoLang'));
     document.getElementById('floating-channel-btn').addEventListener('click', () => openFilterModal('channel'));
     
     elements.closeFilterModalBtn.addEventListener('click', () => closeModal(elements.filterModal));
@@ -613,6 +638,8 @@ function initializeApp(lang) {
     }
 
     isAppInitialized = true;
+    // Set video language filter to match UI language on first load
+    state.videoLang = lang;
     applyTranslations(lang);
 
     const savedTheme = localStorage.getItem('theme') || 'light';
